@@ -1,0 +1,2235 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="theme-color" content="#0d0d0f">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EPIC — Ecom Price Calculator | Sell Smarter on Amazon, Flipkart & More</title>
+<meta name="description" content="EPIC helps Indian e-commerce sellers calculate exact selling price, profit margin, GST, platform fees & returns risk — across Amazon, Flipkart, Myntra and 8+ platforms. Free 3-day trial.">
+<meta name="keywords" content="ecommerce price calculator, amazon seller tool, flipkart fees calculator, India, GST calculator, profit margin">
+<meta name="author" content="Sumit Rai, Raimage Design">
+<meta property="og:title" content="EPIC — Ecom Price Calculator">
+<meta property="og:description" content="Calculate your exact selling price & profit for Amazon, Flipkart, Myntra & more. Free for Indian sellers.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="EPIC — Ecom Price Calculator">
+<meta name="twitter:description" content="Price smarter. Sell bigger. Built for Indian e-commerce.">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ════════════════════════════════════════════
+   EPIC — ECOM PRICE CALCULATOR v1
+   © 2026 Sumit Rai · Raimage Design
+   ════════════════════════════════════════════ */
+
+/* ── DARK THEME ── */
+:root, [data-theme="dark"] {
+  color-scheme: dark;
+  --bg:     #0d0d0f;
+  --bg2:    #141417;
+  --bg3:    #1c1c20;
+  --bg4:    #252529;
+  --bd:     #2e2e34;
+  --bd2:    #3e3e46;
+  --tx:     #f0ede6;
+  --t2:     #989690;
+  --t3:     #5c5a55;
+  --ac:     #c8f060;
+  --ac2:    #a8d840;
+  --ac-dim: rgba(200,240,96,.12);
+  --ac-tx:  #0d0d0f;
+  --gr:     #30d158;
+  --re:     #ff5555;
+  --or:     #ff9500;
+  --ye:     #ffd60a;
+  --sh:     0 4px 24px rgba(0,0,0,.5);
+  --sh2:    0 12px 48px rgba(0,0,0,.6);
+  --nav:    rgba(13,13,15,.9);
+  --ff: 'Outfit', sans-serif;
+  --fs: 'Outfit', sans-serif;
+  --fm: 'DM Mono', monospace;
+  --r: 10px; --rl: 14px; --rp: 999px;
+}
+
+/* ── LIGHT THEME ── */
+[data-theme="light"] {
+  color-scheme: light;
+  --bg:     #f5f4f0;
+  --bg2:    #ffffff;
+  --bg3:    #eeede8;
+  --bg4:    #e4e3de;
+  --bd:     #d8d7d0;
+  --bd2:    #b0afa8;
+  --tx:     #111111;
+  --t2:     #444440;
+  --t3:     #888880;
+  --ac:     #3a6b00;
+  --ac2:    #2c5200;
+  --ac-dim: rgba(58,107,0,.1);
+  --ac-tx:  #ffffff;
+  --gr:     #15803d;
+  --re:     #dc2626;
+  --or:     #c25700;
+  --ye:     #a16207;
+  --sh:     0 4px 24px rgba(0,0,0,.08);
+  --sh2:    0 12px 48px rgba(0,0,0,.12);
+  --nav:    rgba(245,244,240,.92);
+  --ff: 'Outfit', sans-serif;
+  --fs: 'Outfit', sans-serif;
+  --fm: 'DM Mono', monospace;
+  --r: 10px; --rl: 14px; --rp: 999px;
+}
+
+/* ── RESET ── */
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:14px;scroll-behavior:smooth}
+body{font-family:var(--ff);background:var(--bg);color:var(--tx);min-height:100vh;-webkit-font-smoothing:antialiased;transition:background .2s,color .2s}
+input,select,textarea,button{font-family:var(--ff)}
+input[type=number]{-moz-appearance:textfield}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:3px}
+a{color:var(--ac);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* ── PAGES ── */
+.page{display:none;min-height:100vh}
+.page.active{display:block}
+
+/* ════════════════════
+   NAV
+════════════════════ */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  height:60px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 40px;background:var(--nav);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--bd);transition:background .2s;
+}
+.nav-logo{display:flex;align-items:center;gap:10px;cursor:pointer;text-decoration:none}
+.nav-logo .badge{
+  width:30px;height:30px;border-radius:8px;background:var(--ac);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--fm);font-size:12px;font-weight:700;color:var(--ac-tx);
+}
+.nav-logo span{font-family:var(--fs);font-size:17px;font-weight:700;letter-spacing:-.02em;color:var(--tx)}
+.nav-links{display:flex;gap:2px}
+.nav-link{padding:7px 14px;border-radius:var(--rp);font-size:13px;color:var(--t2);cursor:pointer;border:none;background:none;transition:all .15s}
+.nav-link:hover{color:var(--tx);background:var(--bg3)}
+.nav-right{display:flex;align-items:center;gap:8px}
+.btn-ghost{height:36px;padding:0 16px;border-radius:var(--rp);border:1px solid var(--bd2);background:transparent;color:var(--t2);font-size:13px;cursor:pointer;transition:all .15s}
+.btn-ghost:hover{color:var(--tx);border-color:var(--tx)}
+.btn-primary{height:36px;padding:0 18px;border-radius:var(--rp);border:none;background:var(--ac);color:var(--ac-tx);font-size:13px;font-weight:600;cursor:pointer;transition:all .18s;display:inline-flex;align-items:center;gap:7px}
+.btn-primary:hover{background:var(--ac2);transform:translateY(-1px)}
+.btn-primary .dot{width:6px;height:6px;border-radius:50%;background:color-mix(in srgb,var(--ac-tx) 40%,transparent)}
+.theme-btn{width:36px;height:36px;border-radius:var(--rp);border:1px solid var(--bd);background:var(--bg3);color:var(--t2);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0}
+.theme-btn:hover{border-color:var(--ac);color:var(--ac)}
+.theme-btn svg{width:16px;height:16px}
+
+/* ════════════════════
+   LANDING — HERO
+════════════════════ */
+.hero-section{
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;text-align:center;padding:100px 24px 60px;
+  position:relative;overflow:hidden;background:var(--bg);
+}
+.hero-glow{
+  position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 70% 50% at 50% 0%,color-mix(in srgb,var(--ac) 15%,transparent),transparent 65%);
+}
+.hero-pill{
+  display:inline-flex;align-items:center;gap:7px;margin-bottom:24px;
+  font-family:var(--fm);font-size:11px;color:var(--ac);letter-spacing:.08em;text-transform:uppercase;
+  border:1px solid color-mix(in srgb,var(--ac) 30%,transparent);border-radius:var(--rp);padding:5px 14px;
+  position:relative;z-index:1;
+}
+.hero-pill::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--ac);display:inline-block}
+.hero-h1{
+  font-family:var(--fs);font-size:clamp(44px,7.5vw,88px);font-weight:800;
+  line-height:.95;letter-spacing:-.04em;margin-bottom:20px;
+  color:var(--tx);position:relative;z-index:1;
+}
+.hero-h1 em{color:var(--ac);font-style:italic}
+.hero-sub{
+  font-size:17px;color:var(--t2);max-width:500px;line-height:1.65;
+  margin-bottom:36px;font-weight:300;position:relative;z-index:1;
+}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:64px;position:relative;z-index:1}
+.btn-hero{height:48px;padding:0 28px;border-radius:var(--rp);font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:8px}
+.btn-hero-p{background:var(--ac);color:var(--ac-tx);border:none}
+.btn-hero-p:hover{background:var(--ac2);transform:translateY(-2px);box-shadow:0 12px 32px color-mix(in srgb,var(--ac) 30%,transparent)}
+.btn-hero-s{background:transparent;color:var(--tx);border:1px solid var(--bd2)}
+.btn-hero-s:hover{background:var(--bg3);border-color:var(--t2)}
+/* Hero mockup */
+.hero-mockup{
+  position:relative;z-index:1;width:100%;max-width:820px;
+  background:var(--bg2);border:1px solid var(--bd);border-radius:var(--rl);
+  overflow:hidden;box-shadow:var(--sh2);
+}
+.mockup-bar{display:flex;align-items:center;gap:7px;padding:12px 16px;background:var(--bg3);border-bottom:1px solid var(--bd)}
+.mockup-dot{width:10px;height:10px;border-radius:50%}
+.mockup-url{flex:1;text-align:center;font-family:var(--fm);font-size:11px;color:var(--t3);background:var(--bg4);border-radius:6px;padding:4px 12px}
+.mockup-body{display:grid;grid-template-columns:1fr 260px;gap:0}
+.mockup-inputs{padding:20px;display:flex;flex-direction:column;gap:10px;border-right:1px solid var(--bd)}
+.mock-field{background:var(--bg3);border:1px solid var(--bd);border-radius:8px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center}
+.mock-field .mfl{font-size:11px;color:var(--t3);font-family:var(--fm)}
+.mock-field .mfv{font-family:var(--fm);font-size:13px;color:var(--ac);font-weight:500}
+.mockup-result{padding:20px}
+.mr-price{font-family:var(--fs);font-size:34px;font-weight:800;color:var(--ac);letter-spacing:-.02em;margin-bottom:4px}
+.mr-label{font-family:var(--fm);font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:18px}
+.mr-stat{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--bd);font-size:11px}
+.mr-stat:last-child{border-bottom:none}
+.mr-stat .ms-k{color:var(--t2)}
+.mr-stat .ms-v{font-family:var(--fm);font-weight:500}
+.green{color:var(--gr)}
+.orange{color:var(--or)}
+
+/* ════════════════════
+   LANDING SECTIONS
+════════════════════ */
+.land-section{padding:96px 40px;max-width:1200px;margin:0 auto}
+.sec-eyebrow{font-family:var(--fm);font-size:11px;color:var(--ac);text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px}
+.sec-h2{font-family:var(--fs);font-size:clamp(32px,4.5vw,52px);font-weight:800;letter-spacing:-.03em;line-height:1.05;margin-bottom:14px}
+.sec-h2 em{color:var(--ac);font-style:italic}
+.sec-sub{font-size:16px;color:var(--t2);max-width:460px;line-height:1.65;font-weight:300}
+/* feature cards */
+.feat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--bd);border-radius:var(--rl);overflow:hidden;margin-top:52px;background:var(--bd)}
+.feat-card{background:var(--bg2);padding:28px 24px;transition:background .15s;cursor:default}
+.feat-card:hover{background:var(--bg3)}
+.feat-card.hi{background:color-mix(in srgb,var(--ac) 8%,var(--bg2))}
+.feat-card.hi:hover{background:color-mix(in srgb,var(--ac) 12%,var(--bg2))}
+.fc-num{font-family:var(--fm);font-size:10px;color:var(--t3);margin-bottom:18px;letter-spacing:.05em}
+.fc-icon{color:var(--ac);margin-bottom:14px}
+.fc-icon svg{width:26px;height:26px}
+.fc-title{font-family:var(--fs);font-size:14px;font-weight:700;margin-bottom:7px}
+.feat-card.hi .fc-title{color:var(--ac)}
+.fc-desc{font-size:12px;color:var(--t2);line-height:1.6}
+/* steps */
+.steps-wrap{background:var(--bg3);border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);padding:80px 40px}
+.steps-inner{max-width:900px;margin:0 auto;text-align:center}
+.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:48px;margin-top:52px}
+.step{text-align:center}
+.step-num{width:44px;height:44px;border-radius:12px;background:var(--ac-dim);border:1px solid color-mix(in srgb,var(--ac) 25%,transparent);display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-family:var(--fm);font-size:13px;font-weight:600;color:var(--ac)}
+.step-title{font-family:var(--fs);font-size:16px;font-weight:700;margin-bottom:8px}
+.step-desc{font-size:13px;color:var(--t2);line-height:1.65}
+/* pricing */
+.price-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:760px;margin:52px auto 0}
+.price-card{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--rl);padding:32px}
+.price-card.pro-card{background:linear-gradient(140deg,#1a2d06,#0f1a04);border-color:color-mix(in srgb,var(--ac) 30%,transparent)}
+[data-theme="light"] .price-card.pro-card{background:linear-gradient(140deg,#1e3400,#0f1a00)}
+.pc-badge{display:inline-flex;padding:3px 10px;border-radius:var(--rp);font-family:var(--fm);font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:18px}
+.pc-free-badge{background:var(--bg3);color:var(--t2)}
+.pc-pro-badge{background:color-mix(in srgb,var(--ac) 15%,transparent);color:var(--ac)}
+.pc-name{font-family:var(--fs);font-size:24px;font-weight:700;margin-bottom:4px}
+.price-card.pro-card .pc-name,.price-card.pro-card .pc-sub,.price-card.pro-card .pc-feat li{color:rgba(240,237,230,.85)}
+.pc-sub{font-size:13px;color:var(--t2);margin-bottom:24px}
+.pc-amount{margin-bottom:6px}
+.pc-amount .amt{font-family:var(--fs);font-size:44px;font-weight:800;letter-spacing:-.03em}
+.price-card.pro-card .pc-amount .amt{color:#c8f060}
+.pc-amount .per{font-size:14px;color:var(--t2);margin-left:4px}
+.pc-trial{font-family:var(--fm);font-size:11px;color:var(--ac);margin-bottom:22px}
+.pc-btn{width:100%;height:44px;border-radius:var(--r);font-size:14px;font-weight:600;cursor:pointer;transition:all .18s;margin-bottom:24px;display:flex;align-items:center;justify-content:center;gap:7px}
+.pc-free-btn{background:transparent;color:var(--tx);border:1px solid var(--bd2)}
+.pc-free-btn:hover{background:var(--bg3)}
+.pc-pro-btn{background:#c8f060;color:#0d0d0f;border:none}
+.pc-pro-btn:hover{background:#a8d840;transform:translateY(-1px)}
+.pc-feat{list-style:none;display:flex;flex-direction:column;gap:9px}
+.pc-feat li{display:flex;align-items:center;gap:9px;font-size:13px;color:var(--t2)}
+.pc-feat li svg{width:14px;height:14px;color:var(--ac);flex-shrink:0}
+.pc-feat li.no svg{color:var(--t3)}
+.pc-feat li.no{color:var(--t3)}
+/* cta strip */
+.cta-strip{background:var(--bg2);border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);padding:80px 40px;text-align:center}
+.cta-strip .ct-eye{font-family:var(--fm);font-size:11px;color:var(--ac);text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px}
+.cta-strip .ct-h{font-family:var(--fs);font-size:clamp(28px,4vw,48px);font-weight:800;letter-spacing:-.03em;margin-bottom:12px}
+.cta-strip .ct-sub{font-size:15px;color:var(--t2);margin-bottom:32px}
+/* footer */
+.land-footer{background:var(--bg2);border-top:1px solid var(--bd);padding:48px 40px 32px}
+.lf-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:36px;margin-bottom:36px}
+.lf-brand p{font-size:13px;color:var(--t2);line-height:1.65;margin-top:10px;max-width:220px}
+.lf-title{font-family:var(--fs);font-size:13px;font-weight:600;margin-bottom:12px}
+.lf-links{display:flex;flex-direction:column;gap:8px}
+.lf-links a{font-size:13px;color:var(--t2);cursor:pointer;transition:color .12s}
+.lf-links a:hover{color:var(--tx);text-decoration:none}
+.lf-bottom{border-top:1px solid var(--bd);padding-top:20px;display:flex;align-items:center;justify-content:space-between;font-family:var(--fm);font-size:11px;color:var(--t3)}
+
+/* ════════════════════
+   AUTH
+════════════════════ */
+.auth-wrap{min-height:100vh;display:grid;grid-template-columns:1fr 1fr}
+.auth-left{
+  background:linear-gradient(160deg,#1a2d06 0%,#0f1a04 55%,#0d0d0f 100%);
+  padding:48px;display:flex;flex-direction:column;justify-content:space-between;
+  position:relative;overflow:hidden;border-right:1px solid #2a2a2a;
+}
+.auth-left::before{content:'';position:absolute;top:-80px;left:-80px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(200,240,96,.1) 0%,transparent 70%)}
+.al-logo{display:flex;align-items:center;gap:9px;position:relative;z-index:1}
+.al-logo .badge{width:28px;height:28px;border-radius:7px;background:#c8f060;display:flex;align-items:center;justify-content:center;font-family:var(--fm);font-size:11px;font-weight:700;color:#0d0d0f}
+.al-logo span{font-family:var(--fs);font-size:16px;font-weight:700;color:#f0ede6}
+.al-content{position:relative;z-index:1}
+.al-content h2{font-family:var(--fs);font-size:38px;font-weight:800;letter-spacing:-.03em;line-height:1.1;margin:40px 0 14px;color:#f0ede6}
+.al-content h2 em{color:#c8f060;font-style:italic}
+.al-content p{font-size:15px;color:rgba(240,237,230,.6);line-height:1.65;font-weight:300}
+.al-feats{margin-top:32px;display:flex;flex-direction:column;gap:12px}
+.al-feat{display:flex;align-items:center;gap:11px}
+.al-feat-dot{width:7px;height:7px;border-radius:50%;background:#c8f060;box-shadow:0 0 10px rgba(200,240,96,.4);flex-shrink:0}
+.al-feat span{font-size:13px;color:rgba(240,237,230,.6)}
+.al-footer{font-family:var(--fm);font-size:11px;color:rgba(240,237,230,.3);position:relative;z-index:1}
+.auth-right{background:var(--bg);display:flex;align-items:center;justify-content:center;padding:48px 64px}
+.auth-box{width:100%;max-width:380px}
+.auth-title{font-family:var(--fs);font-size:26px;font-weight:700;letter-spacing:-.02em;margin-bottom:5px}
+.auth-sub{font-size:14px;color:var(--t2);margin-bottom:28px}
+.auth-sub a{color:var(--ac);cursor:pointer}
+.trial-notice{background:var(--ac-dim);border:1px solid color-mix(in srgb,var(--ac) 25%,transparent);border-radius:var(--r);padding:12px 14px;margin-bottom:22px;display:flex;align-items:center;gap:10px}
+.trial-notice svg{width:18px;height:18px;color:var(--ac);flex-shrink:0}
+.trial-notice p{font-size:12px;color:var(--tx);line-height:1.45}
+.trial-notice p strong{color:var(--ac)}
+/* form */
+.fg{margin-bottom:14px}
+.fl{display:block;font-family:var(--fm);font-size:10px;font-weight:600;color:var(--t2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.fi{width:100%;height:46px;padding:0 14px;background:var(--bg2);border:1.5px solid var(--bd);border-radius:var(--r);color:var(--tx);font-size:14px;outline:none;transition:border-color .15s}
+.fi:focus{border-color:var(--ac);background:color-mix(in srgb,var(--ac) 4%,var(--bg2))}
+.fi::placeholder{color:var(--t3)}
+.ferr{font-size:11px;color:var(--re);margin-top:5px;font-family:var(--fm);display:none}
+.ferr.show{display:block}
+.btn-submit{width:100%;height:46px;border-radius:var(--r);background:var(--ac);color:var(--ac-tx);border:none;font-size:14px;font-weight:600;cursor:pointer;transition:all .18s;margin-top:6px}
+.btn-submit:hover{background:var(--ac2);transform:translateY(-1px)}
+.auth-switch{text-align:center;font-size:13px;color:var(--t2);margin-top:18px}
+.auth-switch a{color:var(--ac);cursor:pointer}
+.auth-note{font-size:11px;color:var(--t3);text-align:center;margin-top:16px;line-height:1.6;font-family:var(--fm)}
+.auth-note a{color:var(--ac);cursor:pointer}
+
+/* ════════════════════
+   DASHBOARD
+════════════════════ */
+.dash-layout{display:flex;min-height:100vh}
+/* sidebar */
+.sidebar{
+  width:220px;min-height:100vh;background:var(--bg2);border-right:1px solid var(--bd);
+  display:flex;flex-direction:column;flex-shrink:0;
+  position:fixed;top:0;left:0;bottom:0;z-index:100;overflow-y:auto;
+}
+.sb-logo{display:flex;align-items:center;gap:9px;padding:18px 16px 20px;border-bottom:1px solid var(--bd);cursor:pointer}
+.sb-logo .badge{width:28px;height:28px;border-radius:7px;background:var(--ac);display:flex;align-items:center;justify-content:center;font-family:var(--fm);font-size:11px;font-weight:700;color:var(--ac-tx)}
+.sb-logo span{font-family:var(--fs);font-size:15px;font-weight:700;color:var(--tx)}
+.sb-section{font-family:var(--fm);font-size:9px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.1em;padding:14px 16px 6px}
+.sb-item{
+  display:flex;align-items:center;gap:9px;padding:9px 14px;
+  font-size:13px;color:var(--t2);cursor:pointer;transition:all .12s;
+  border-radius:8px;margin:1px 8px;border:1px solid transparent;
+}
+.sb-item:hover{background:var(--bg3);color:var(--tx)}
+.sb-item.active{background:var(--ac-dim);color:var(--ac);border-color:color-mix(in srgb,var(--ac) 20%,transparent)}
+.sb-item svg{width:15px;height:15px;flex-shrink:0}
+.sb-bottom{margin-top:auto;padding:12px 8px;border-top:1px solid var(--bd)}
+.trial-box{background:color-mix(in srgb,var(--ac) 7%,transparent);border:1px solid color-mix(in srgb,var(--ac) 15%,transparent);border-radius:10px;padding:14px;margin-bottom:10px}
+.tb-label{font-family:var(--fm);font-size:9px;color:var(--ac);text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px}
+.tb-days{font-family:var(--fs);font-size:20px;font-weight:700;margin-bottom:4px}
+.tb-bar{height:3px;background:var(--bd);border-radius:2px;overflow:hidden;margin-bottom:10px}
+.tb-fill{height:100%;border-radius:2px;background:var(--ac);transition:width .4s}
+.tb-btn{width:100%;height:32px;border-radius:7px;background:var(--ac);color:var(--ac-tx);border:none;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s}
+.tb-btn:hover{background:var(--ac2)}
+.sb-user{display:flex;align-items:center;gap:9px;padding:8px 6px}
+.sb-avatar{width:30px;height:30px;border-radius:8px;background:var(--ac-dim);border:1px solid color-mix(in srgb,var(--ac) 20%,transparent);display:flex;align-items:center;justify-content:center;font-family:var(--fs);font-size:12px;font-weight:700;color:var(--ac);flex-shrink:0}
+.sb-user-info{flex:1;min-width:0}
+.sb-user-name{font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sb-user-plan{font-size:10px;color:var(--t3);font-family:var(--fm)}
+/* main content */
+.dash-main{margin-left:220px;flex:1;padding:28px 32px;min-height:100vh}
+.dash-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:24px;gap:16px;flex-wrap:wrap}
+.dh-left h2{font-family:var(--fs);font-size:22px;font-weight:700;letter-spacing:-.02em;margin-bottom:3px}
+.dh-left p{font-size:13px;color:var(--t2)}
+.dh-right{display:flex;gap:8px;flex-wrap:wrap}
+/* stat cards */
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.stat-card{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r);padding:18px;transition:border-color .15s}
+.stat-card:hover{border-color:var(--bd2)}
+.stat-card.ac-card{background:color-mix(in srgb,var(--ac) 8%,var(--bg2));border-color:color-mix(in srgb,var(--ac) 20%,transparent)}
+.sc-label{font-family:var(--fm);font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:9px}
+.sc-val{font-family:var(--fs);font-size:26px;font-weight:700;letter-spacing:-.02em;margin-bottom:3px;transition:color .2s}
+.sc-val.ac{color:var(--ac)}
+.sc-val.gr{color:var(--gr)}
+.sc-val.re{color:var(--re)}
+.sc-val.or{color:var(--or)}
+.sc-sub{font-size:11px;color:var(--t3);font-family:var(--fm)}
+.sc-sub.gr{color:var(--gr)}
+.sc-sub.re{color:var(--re)}
+/* platform tabs */
+.ptabs{display:flex;gap:6px;margin-bottom:18px;flex-wrap:wrap;align-items:center}
+.ptab{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:var(--rp);border:1.5px solid var(--bd);background:var(--bg2);font-size:12px;font-weight:500;color:var(--t2);cursor:pointer;transition:all .15s}
+.ptab:hover{border-color:var(--bd2);color:var(--tx)}
+.ptab.active{color:#fff;border-color:transparent;box-shadow:var(--sh)}
+.ptab .pdot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.ptab.active .pdot{background:rgba(255,255,255,.6)!important}
+.add-ptab{display:inline-flex;align-items:center;gap:5px;padding:7px 12px;border-radius:var(--rp);border:1.5px dashed var(--bd);font-size:11px;color:var(--t3);cursor:pointer;transition:all .15s;background:transparent}
+.add-ptab:hover{border-color:var(--bd2);color:var(--t2)}
+/* calc grid */
+.calc-grid{display:grid;grid-template-columns:1fr 360px;gap:16px;margin-bottom:20px}
+/* cards */
+.card{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r);padding:20px}
+.card-title{display:flex;align-items:center;gap:8px;font-family:var(--fs);font-size:13px;font-weight:700;margin-bottom:3px}
+.card-sub{font-size:11px;color:var(--t3);font-family:var(--fm);margin-bottom:16px}
+.snbadge{font-family:var(--fm);font-size:9px;color:var(--t3);background:var(--bg3);border:1px solid var(--bd);border-radius:4px;padding:2px 6px;letter-spacing:.04em}
+/* field grid */
+.fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.fgrid2{grid-template-columns:repeat(2,1fr)}
+.fgrid4{grid-template-columns:repeat(4,1fr)}
+/* floating label field */
+.fitem{display:flex;flex-direction:column}
+.fwrap{position:relative}
+.fwrap input[type=number],.fwrap select{
+  width:100%;height:50px;padding:17px 12px 5px;
+  background:var(--bg3);border:1.5px solid var(--bd);border-radius:var(--r);
+  color:var(--tx);font-family:var(--fm);font-size:13px;
+  outline:none;transition:border-color .15s,background .15s;appearance:none;
+}
+.fwrap input[type=number]:focus,.fwrap select:focus{border-color:var(--ac);background:color-mix(in srgb,var(--ac) 4%,var(--bg3))}
+.fwrap input:hover,.fwrap select:hover{border-color:var(--bd2)}
+.fwrap input.hp{padding-left:24px}
+.fwrap input.hs{padding-right:28px}
+.fwrap input.pinned{border-color:color-mix(in srgb,var(--ac) 50%,var(--bd));background:color-mix(in srgb,var(--ac) 6%,var(--bg3))}
+.flabel{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:12px;color:var(--t3);pointer-events:none;transition:all .12s}
+.flabel.up,.fwrap input:focus~.flabel,.fwrap select:focus~.flabel,.fwrap input:not(:placeholder-shown)~.flabel{top:10px;transform:none;font-size:9px;font-weight:600;color:var(--t3);letter-spacing:.06em;text-transform:uppercase}
+.fsym{position:absolute;left:9px;bottom:12px;font-family:var(--fm);font-size:12px;color:var(--t3);pointer-events:none}
+.fsuf{position:absolute;right:9px;bottom:12px;font-family:var(--fm);font-size:11px;color:var(--t3);pointer-events:none}
+.farr{position:absolute;right:9px;bottom:17px;pointer-events:none;color:var(--t3)}
+.fhint{font-size:10px;color:var(--t3);margin-top:3px;font-family:var(--fm)}
+/* results hero */
+.res-hero{
+  background:linear-gradient(140deg,#1a2d0a,#0f1a04);
+  border-radius:12px;padding:20px;margin-bottom:12px;position:relative;overflow:hidden;
+}
+[data-theme="light"] .res-hero{background:linear-gradient(140deg,#1e3400,#0f1a00)}
+.res-hero::before{content:'';position:absolute;top:-40px;right:-40px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.06),transparent)}
+.rh-label{font-family:var(--fm);font-size:9px;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;position:relative;z-index:1}
+.rh-val{font-family:var(--fs);font-size:32px;font-weight:800;color:#c8f060;letter-spacing:-.02em;line-height:1;position:relative;z-index:1}
+.rh-sub{font-size:10px;color:rgba(255,255,255,.35);margin-top:5px;font-family:var(--fm);position:relative;z-index:1}
+/* metric cards */
+.met-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px}
+.met{background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r);padding:12px 13px}
+.met-l{font-family:var(--fm);font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px}
+.met-v{font-family:var(--fs);font-size:18px;font-weight:700;transition:color .2s}
+.met-s{font-size:10px;color:var(--t3);font-family:var(--fm);margin-top:2px}
+/* health bar */
+.hbar{margin-bottom:12px}
+.hbar-top{display:flex;justify-content:space-between;font-family:var(--fm);font-size:10px;color:var(--t3);margin-bottom:5px}
+.hbar-track{height:4px;background:var(--bg4);border-radius:2px;overflow:hidden;border:1px solid var(--bd)}
+.hbar-fill{height:100%;border-radius:2px;transition:width .5s,background .4s}
+/* waterfall */
+.wf{margin-bottom:12px}
+.wfsep{height:1px;background:var(--bd);margin:6px 0}
+.wfr{display:flex;align-items:center;gap:7px;padding:4px 7px;border-radius:6px;transition:background .1s}
+.wfr:hover{background:var(--bg3)}
+.wfl{font-size:10px;color:var(--t2);font-family:var(--fm);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wft{width:44px;height:3px;background:var(--bd);border-radius:2px;flex-shrink:0}
+.wfb{height:3px;border-radius:2px;background:var(--re);transition:width .3s}
+.wfv{font-size:10px;font-family:var(--fm);color:var(--tx);min-width:54px;text-align:right;flex-shrink:0}
+.wfr.sub .wfl,.wfr.sub .wfv{font-weight:600;color:var(--tx)}
+.wfr.fin .wfl{font-weight:600;color:var(--gr)}
+.wfr.fin.bad .wfl{color:var(--re)}
+.wfr.fin .wfv{font-weight:700;font-size:12px;color:var(--gr)}
+.wfr.fin.bad .wfv{color:var(--re)}
+/* signals */
+.sigs{background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r);padding:14px;margin-bottom:12px}
+.sigs-hd{font-family:var(--fm);font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+.sig{font-size:10px;font-family:var(--fm);color:var(--t2);padding:4px 0 4px 9px;border-bottom:1px solid var(--bd);line-height:1.55}
+.sig:last-child{border-bottom:none;padding-bottom:0}
+.sig b{font-weight:600;color:var(--tx)}
+/* compare */
+.cmp-grid{display:flex;flex-wrap:wrap;gap:7px}
+.cc{background:var(--bg3);border:1.5px solid var(--bd);border-radius:var(--r);padding:10px 8px;text-align:center;cursor:pointer;transition:all .15s;flex:1;min-width:72px}
+.cc:hover{border-color:var(--bd2)}
+.cc.active{background:var(--bg2);box-shadow:var(--sh)}
+.cc-name{font-size:9px;color:var(--t3);font-family:var(--fm);margin-bottom:3px;text-transform:uppercase;letter-spacing:.04em}
+.cc-val{font-family:var(--fm);font-size:12px;font-weight:600}
+.cc-mar{font-size:9px;font-family:var(--fm);color:var(--t3);margin-top:2px}
+/* action buttons */
+.dash-btn{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 16px;border-radius:var(--r);font-family:var(--fm);font-size:11px;font-weight:500;cursor:pointer;border:1px solid var(--bd);background:var(--bg2);color:var(--t2);transition:all .15s}
+.dash-btn:hover{border-color:var(--bd2);color:var(--tx);background:var(--bg3)}
+.dash-btn.primary{background:var(--ac);color:var(--ac-tx);border-color:transparent}
+.dash-btn.primary:hover{background:var(--ac2)}
+.dash-btn svg{width:14px;height:14px}
+/* history table */
+.tbl-wrap{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r);overflow:hidden}
+.tbl-hd{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--bd)}
+.tbl-title{font-family:var(--fs);font-size:14px;font-weight:700}
+table{width:100%;border-collapse:collapse}
+th{padding:9px 14px;text-align:left;font-family:var(--fm);font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;background:var(--bg3);border-bottom:1px solid var(--bd)}
+td{padding:11px 14px;font-size:12px;color:var(--t2);border-bottom:1px solid var(--bd);font-family:var(--fm)}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--bg3)}
+.badge-ok{display:inline-flex;padding:2px 8px;border-radius:var(--rp);font-size:10px;background:color-mix(in srgb,var(--gr) 12%,transparent);color:var(--gr)}
+.badge-warn{display:inline-flex;padding:2px 8px;border-radius:var(--rp);font-size:10px;background:color-mix(in srgb,var(--ye) 12%,transparent);color:var(--ye)}
+.badge-bad{display:inline-flex;padding:2px 8px;border-radius:var(--rp);font-size:10px;background:color-mix(in srgb,var(--re) 12%,transparent);color:var(--re)}
+/* billing */
+.billing-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+.bc-plan{font-family:var(--fs);font-size:20px;font-weight:700;margin-bottom:4px}
+.bc-price{font-family:var(--fs);font-size:36px;font-weight:800;letter-spacing:-.03em;margin-bottom:4px}
+.bc-price span{font-size:14px;color:var(--t2);font-weight:400;letter-spacing:0}
+.bc-sub{font-size:13px;color:var(--t2);margin-bottom:18px}
+.trial-count{background:var(--ac-dim);border:1px solid color-mix(in srgb,var(--ac) 20%,transparent);border-radius:var(--r);padding:14px 18px;margin-bottom:18px}
+.tc-l{font-family:var(--fm);font-size:10px;color:var(--ac);text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px}
+.tc-days{font-family:var(--fs);font-size:28px;font-weight:800;margin-bottom:4px}
+.tc-bar{height:4px;background:var(--bd);border-radius:2px;overflow:hidden;margin-top:8px}
+.tc-fill{height:100%;background:var(--ac);border-radius:2px}
+/* legal */
+.legal-page{max-width:740px;margin:0 auto;padding:100px 24px 80px}
+.legal-page h1{font-family:var(--fs);font-size:36px;font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
+.legal-date{font-family:var(--fm);font-size:11px;color:var(--t3);margin-bottom:40px}
+.legal-tabs{display:flex;gap:8px;margin-bottom:36px}
+.ltab{padding:7px 18px;border-radius:var(--rp);font-size:13px;font-weight:500;cursor:pointer;border:1px solid var(--bd);background:var(--bg2);color:var(--t2);transition:all .15s}
+.ltab.active{background:var(--ac);color:var(--ac-tx);border-color:transparent}
+.legal-page h2{font-family:var(--fs);font-size:18px;font-weight:700;margin:32px 0 10px}
+.legal-page p{font-size:14px;color:var(--t2);line-height:1.8;margin-bottom:12px}
+.legal-page ul{padding-left:20px;color:var(--t2);font-size:14px;line-height:1.8;margin-bottom:12px}
+/* 404 */
+.nf{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px}
+.nf-num{font-family:var(--fs);font-size:110px;font-weight:800;color:var(--bd2);letter-spacing:-.06em;line-height:1}
+.nf h2{font-family:var(--fs);font-size:24px;font-weight:700;margin:16px 0 8px}
+.nf p{font-size:14px;color:var(--t2);margin-bottom:28px}
+/* profile */
+.profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+/* modal */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(14px);z-index:500;display:none;align-items:center;justify-content:center;padding:20px}
+.overlay.show{display:flex;animation:fadein .15s ease}
+.modal{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--rl);padding:26px;width:100%;max-width:480px;max-height:88vh;overflow-y:auto;box-shadow:var(--sh2);animation:slideup .18s ease}
+.modal.wide{max-width:680px}
+.modal-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.modal-hd h3{font-family:var(--fs);font-size:15px;font-weight:700}
+.modal-close{background:none;border:none;cursor:pointer;color:var(--t2);padding:4px;border-radius:5px;transition:all .12s;display:flex;align-items:center;justify-content:center}
+.modal-close:hover{background:var(--bg3);color:var(--tx)}
+.modal-close svg{width:16px;height:16px}
+/* preset list */
+.preset-empty{text-align:center;padding:28px;border:1.5px dashed var(--bd);border-radius:var(--r);font-family:var(--fm);font-size:11px;color:var(--t3)}
+.preset-item{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;background:var(--bg3);border:1.5px solid var(--bd);border-radius:var(--r);cursor:pointer;transition:all .12s;margin-bottom:7px}
+.preset-item:hover{border-color:var(--bd2)}
+.pi-name{font-size:13px;font-weight:600;margin-bottom:2px}
+.pi-meta{font-size:10px;color:var(--t3);font-family:var(--fm)}
+.pi-del{background:none;border:none;cursor:pointer;color:var(--t3);padding:4px 7px;border-radius:4px;transition:all .12s;font-family:var(--fm);font-size:11px}
+.pi-del:hover{background:color-mix(in srgb,var(--re) 12%,transparent);color:var(--re)}
+/* share modal */
+.share-prev{background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r);padding:14px;font-family:var(--fm);font-size:10px;color:var(--t2);white-space:pre-line;line-height:1.75;max-height:200px;overflow-y:auto;margin-top:14px}
+/* paywall */
+.paywall{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(16px);z-index:600;display:none;align-items:center;justify-content:center;padding:24px}
+.paywall.show{display:flex}
+.pw-card{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--rl);padding:48px;max-width:440px;width:100%;text-align:center;box-shadow:var(--sh2)}
+.pw-icon{color:var(--ac);display:flex;justify-content:center;margin-bottom:20px}
+.pw-icon svg{width:40px;height:40px}
+.pw-card h2{font-family:var(--fs);font-size:26px;font-weight:800;margin-bottom:10px}
+.pw-card p{font-size:14px;color:var(--t2);margin-bottom:28px;line-height:1.65}
+/* toast */
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(8px);background:var(--bg4);border:1px solid var(--bd2);color:var(--tx);font-family:var(--fm);font-size:12px;padding:9px 18px;border-radius:var(--rp);opacity:0;transition:all .22s;pointer-events:none;z-index:999;white-space:nowrap;box-shadow:var(--sh)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+/* animations */
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+@keyframes slideup{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+/* ── PRODUCT ID ROW ── */
+.pid-row{display:flex;align-items:stretch;background:var(--bg2);border:1.5px solid var(--bd);border-radius:var(--r);margin-bottom:10px;overflow:hidden;transition:border-color .15s}
+.pid-row:focus-within{border-color:var(--ac)}
+.pid-label{display:flex;align-items:center;gap:6px;padding:0 14px;background:var(--bg3);border-right:1px solid var(--bd);font-size:10px;font-weight:600;color:var(--t2);white-space:nowrap;font-family:var(--fm);letter-spacing:.06em;text-transform:uppercase;flex-shrink:0}
+.pid-label svg{opacity:.5}
+.pid-in{flex:1;height:46px;padding:0 13px;border:none;background:transparent;outline:none;font-family:var(--fm);font-size:13px;color:var(--tx);min-width:80px}
+.pid-in::placeholder{color:var(--t3)}
+.pid-div{width:1px;background:var(--bd);flex-shrink:0}
+.pid-type{position:relative;flex-shrink:0}
+.pid-tbtn{display:flex;align-items:center;gap:6px;height:46px;padding:0 13px;border:none;background:transparent;cursor:pointer;font-family:var(--fm);font-size:12px;color:var(--t2);transition:background .12s;min-width:72px;justify-content:space-between}
+.pid-tbtn:hover{background:var(--bg3)}
+.pid-chev{transition:transform .15s}
+.pid-tbtn.open .pid-chev{transform:rotate(180deg)}
+.pid-dd{position:absolute;top:calc(100% + 5px);right:0;background:var(--bg2);border:1.5px solid var(--bd);border-radius:var(--r);padding:5px;min-width:90px;box-shadow:var(--sh);z-index:300;display:none}
+.pid-dd.show{display:block;animation:popIn .1s ease}
+@keyframes popIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.popt{display:flex;align-items:center;justify-content:space-between;padding:7px 10px;border-radius:6px;cursor:pointer;font-family:var(--fm);font-size:12px;color:var(--tx);transition:background .1s}
+.popt:hover{background:var(--bg3)}
+.popt.sel{font-weight:600}
+.popt .ck{color:var(--ac);font-size:11px;opacity:0}
+.popt.sel .ck{opacity:1}
+.pid-noid{display:flex;align-items:center;gap:8px;margin-bottom:18px}
+.pid-noid label{font-size:12px;color:var(--t2);cursor:pointer;user-select:none}
+.pid-noid input[type=checkbox]{width:14px;height:14px;cursor:pointer;accent-color:var(--ac);flex-shrink:0}
+/* ── CATEGORY SECTION ── */
+.cat-section{background:var(--bg2);border:1.5px solid var(--bd);border-radius:var(--r);padding:16px;margin-bottom:14px}
+.cat-hd{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.cat-tag{font-size:9px;font-weight:600;padding:2px 8px;border-radius:var(--rp);background:color-mix(in srgb,var(--ye) 12%,transparent);color:var(--ye);border:1px solid color-mix(in srgb,var(--ye) 25%,transparent);font-family:var(--fm);letter-spacing:.04em}
+.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+/* ── PLATFORM REMOVE ── */
+.ptab .ptab-rm{display:none;position:absolute;top:-6px;right:-6px;width:16px;height:16px;border-radius:50%;background:var(--re);color:#fff;font-size:9px;align-items:center;justify-content:center;cursor:pointer;border:2px solid var(--bg);line-height:1;font-weight:700;z-index:5}
+.ptab:hover .ptab-rm{display:flex}
+.ptab.active .ptab-rm{display:none}
+/* ── ADD PLATFORM MODAL ── */
+.pgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:16px}
+.pcard{border:1.5px solid var(--bd);border-radius:var(--r);padding:13px 14px;cursor:pointer;transition:all .15s;position:relative}
+.pcard:hover{border-color:var(--bd2);background:var(--bg3)}
+.pcard.added{opacity:.45;cursor:not-allowed;pointer-events:none}
+.pcard .pcn{font-size:13px;font-weight:700;margin-bottom:2px}
+.pcard .pcs{font-size:10px;color:var(--t3);font-family:var(--fm)}
+.pcard .pca{position:absolute;top:8px;right:8px;font-size:9px;font-family:var(--fm);background:color-mix(in srgb,var(--gr) 12%,transparent);color:var(--gr);border:1px solid color-mix(in srgb,var(--gr) 25%,transparent);padding:2px 7px;border-radius:var(--rp)}
+.cf-divider{height:1px;background:var(--bd);margin:18px 0}
+.cf-title{font-size:11px;font-weight:600;color:var(--t2);text-transform:uppercase;letter-spacing:.07em;margin-bottom:12px;font-family:var(--fm)}
+.ff2{display:flex;flex-direction:column;gap:5px}
+.ff2 label{font-size:10px;font-weight:600;color:var(--t2);letter-spacing:.05em;text-transform:uppercase;font-family:var(--fm)}
+.ff2 input,.ff2 select{height:40px;border:1.5px solid var(--bd);border-radius:var(--r);padding:0 11px;font-family:var(--fm);font-size:12px;color:var(--tx);background:var(--bg3);outline:none;appearance:none;transition:border-color .15s}
+.ff2 input:focus,.ff2 select:focus{border-color:var(--ac)}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.frow3{grid-template-columns:1fr 1fr 1fr}
+.csw{display:flex;gap:7px;flex-wrap:wrap;margin-top:4px}
+.sw{width:26px;height:26px;border-radius:50%;cursor:pointer;border:2.5px solid transparent;transition:all .12s}
+.sw:hover{transform:scale(1.1)}
+.sw.sel{border-color:var(--tx);box-shadow:0 0 0 3px color-mix(in srgb,var(--tx) 15%,transparent)}
+
+/* responsive */
+@media(max-width:1024px){
+  .calc-grid{grid-template-columns:1fr}
+  .stat-row{grid-template-columns:repeat(2,1fr)}
+  .feat-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:768px){
+  .nav{padding:0 20px}.nav-links{display:none}
+  .auth-wrap{grid-template-columns:1fr}.auth-left{display:none}
+  .auth-right{padding:40px 24px}
+  .sidebar{display:none}.dash-main{margin-left:0;padding:20px}
+  .stat-row,.billing-grid,.profile-grid,.price-grid{grid-template-columns:1fr}
+  .fgrid,.fgrid4{grid-template-columns:1fr 1fr}
+  .lf-grid{grid-template-columns:1fr 1fr}
+  .steps-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════ MODALS (global) ══════════════════ -->
+<!-- Add Platform Modal -->
+<div class="overlay" id="add-platform-modal">
+  <div class="modal">
+    <div class="modal-hd">
+      <h3>Add platform</h3>
+      <button class="modal-close" onclick="closeModal('add-platform-modal')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="pgrid" id="pgrid-presets"></div>
+    <div class="cf-divider"></div>
+    <div class="cf-title">Custom platform</div>
+    <div class="frow"><div class="ff2"><label>Name</label><input type="text" id="cp-name" placeholder="e.g. Myntra"></div><div class="ff2"><label>Commission %</label><input type="number" id="cp-comm" value="10" min="0" max="50"></div></div>
+    <div class="frow frow3"><div class="ff2"><label>Closing ₹</label><input type="number" id="cp-close" value="20" min="0"></div><div class="ff2"><label>Pick &amp; pack ₹</label><input type="number" id="cp-pp" value="12" min="0"></div><div class="ff2"><label>Shipping ₹</label><input type="number" id="cp-sh" value="50" min="0"></div></div>
+    <div class="frow" style="margin-bottom:14px"><div class="ff2"><label>TCS %</label><input type="number" id="cp-tcs" value="1" min="0" max="2" step="0.5"></div><div class="ff2"><label>Gateway %</label><input type="number" id="cp-pg" value="2" min="0" max="5" step="0.1"></div></div>
+    <div class="ff2" style="margin-bottom:16px">
+      <label>Brand colour</label>
+      <div class="csw" id="color-swatches">
+        <div class="sw sel" style="background:#7c3aed" data-c="#7c3aed" onclick="pickSwatch(this)"></div>
+        <div class="sw" style="background:#db2777" data-c="#db2777" onclick="pickSwatch(this)"></div>
+        <div class="sw" style="background:#059669" data-c="#059669" onclick="pickSwatch(this)"></div>
+        <div class="sw" style="background:#d97706" data-c="#d97706" onclick="pickSwatch(this)"></div>
+        <div class="sw" style="background:#0891b2" data-c="#0891b2" onclick="pickSwatch(this)"></div>
+        <div class="sw" style="background:#4f46e5" data-c="#4f46e5" onclick="pickSwatch(this)"></div>
+        <div class="sw" style="background:#dc2626" data-c="#dc2626" onclick="pickSwatch(this)"></div>
+        <div class="sw" style="background:#374151" data-c="#374151" onclick="pickSwatch(this)"></div>
+      </div>
+    </div>
+    <button class="dash-btn primary" style="width:100%;justify-content:center;height:42px" onclick="addCustomPlatform()">Add platform</button>
+  </div>
+</div>
+
+<!-- Bulk SKU Modal -->
+<div class="overlay" id="bulk-modal">
+  <div class="modal" style="max-width:680px">
+    <div class="modal-hd">
+      <h3>Bulk SKU Calculator</h3>
+      <button class="modal-close" onclick="closeModal('bulk-modal')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    </div>
+    <p style="font-size:12px;color:var(--t2);font-family:var(--fm);margin-bottom:14px">Upload CSV — uses your current cost settings &amp; active platform fees. <span onclick="dlBulkTemplate()" style="color:var(--ac);cursor:pointer;text-decoration:underline">Download template</span></p>
+    <div id="bulk-drop" style="border:2px dashed var(--bd);border-radius:var(--r);padding:36px;text-align:center;cursor:pointer;transition:all .15s;margin-bottom:14px" onclick="document.getElementById('bulk-file-inp').click()" ondragover="event.preventDefault();this.style.borderColor='var(--bd2)'" ondragleave="this.style.borderColor='var(--bd)'" ondrop="bulkDrop(event)">
+      <div style="color:var(--ac);display:flex;justify-content:center;margin-bottom:12px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="36" height="36"><path stroke-linecap="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/></svg></div>
+      <div style="font-size:14px;font-weight:600;margin-bottom:4px">Click to upload or drag &amp; drop</div>
+      <div style="font-size:11px;color:var(--t3);font-family:var(--fm)">Required: SKU, BuyPrice — Optional: Packaging, Labour, AdditionalShipping</div>
+    </div>
+    <input type="file" id="bulk-file-inp" accept=".csv" style="display:none" onchange="bulkLoad(event)">
+    <div id="bulk-table-wrap" style="display:none;overflow-x:auto;max-height:280px;border:1px solid var(--bd);border-radius:var(--r);margin-bottom:14px"></div>
+    <div style="display:flex;gap:8px">
+      <button class="dash-btn" style="flex:1;justify-content:center" onclick="exportBulkCSV()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="13" height="13"><path stroke-linecap="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>Export results CSV</button>
+      <button class="dash-btn primary" style="flex:1;justify-content:center" onclick="closeModal('bulk-modal')">Done</button>
+    </div>
+  </div>
+</div>
+
+<!-- Share -->
+<div class="overlay" id="share-modal">
+  <div class="modal">
+    <div class="modal-hd">
+      <h3>Share &amp; Export</h3>
+      <button class="modal-close" onclick="closeModal('share-modal')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <button class="dash-btn primary" style="justify-content:center;height:42px" onclick="showToast('PDF report generated — connect jsPDF to download');closeModal('share-modal')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><path stroke-linecap="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m.75 12l3 3m0 0l3-3m-3 3v-6m-1.5-9H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg> Download PDF report</button>
+      <button class="dash-btn" style="justify-content:center;height:42px;color:var(--gr);border-color:color-mix(in srgb,var(--gr) 30%,transparent)" onclick="doWA()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><path stroke-linecap="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z"/></svg> Share via WhatsApp</button>
+      <button class="dash-btn" style="justify-content:center;height:42px" onclick="doCopy()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><path stroke-linecap="round" d="M15.666 3.888A2.25 2.25 0 0013.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 01-.75.75H9a.75.75 0 01-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 011.927-.184"/></svg> Copy text summary</button>
+      <button class="dash-btn" style="justify-content:center;height:42px" onclick="doExportCSV()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><path stroke-linecap="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg> Export as CSV</button>
+    </div>
+    <div class="share-prev" id="share-prev"></div>
+  </div>
+</div>
+<!-- Presets -->
+<div class="overlay" id="preset-modal">
+  <div class="modal">
+    <div class="modal-hd">
+      <h3>Saved Presets</h3>
+      <button class="modal-close" onclick="closeModal('preset-modal')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div id="preset-list" style="margin-bottom:14px"></div>
+    <div style="display:flex;gap:8px">
+      <input type="text" id="preset-inp" placeholder="Name this preset e.g. Blue Kurta" style="flex:1;height:40px;background:var(--bg3);border:1.5px solid var(--bd);border-radius:var(--r);padding:0 12px;color:var(--tx);font-family:var(--fm);font-size:12px;outline:none;transition:border-color .15s" onfocus="this.style.borderColor='var(--ac)'" onblur="this.style.borderColor='var(--bd)'">
+      <button class="dash-btn primary" onclick="doSavePreset()">Save</button>
+    </div>
+  </div>
+</div>
+<!-- Paywall -->
+<div class="paywall" id="paywall">
+  <div class="pw-card">
+    <div class="pw-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg></div>
+    <h2>Trial ended</h2>
+    <p>Upgrade to EPIC Pro for ₹99/month to keep calculating your profits. Cancel anytime.</p>
+    <button class="btn-primary" style="width:100%;justify-content:center;height:46px;font-size:14px;margin-bottom:12px;border-radius:var(--r)" onclick="doRazorpay()"><span class="dot"></span>Upgrade — ₹99/month</button>
+    <button style="background:none;border:none;color:var(--t3);font-size:12px;cursor:pointer;font-family:var(--fm)" onclick="goPage('landing')">← Back to home</button>
+  </div>
+</div>
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- ══════════════════ LANDING ══════════════════ -->
+<div class="page active" id="page-landing">
+  <nav class="nav">
+    <div class="nav-logo" onclick="goPage('landing')">
+      <div class="badge">E</div><span>EPIC</span>
+    </div>
+    <div class="nav-links">
+      <button class="nav-link" onclick="goPage('features')">Features</button>
+      <button class="nav-link" onclick="goPage('pricing')">Pricing</button>
+      <button class="nav-link" onclick="showLegal('terms')">Legal</button>
+    </div>
+    <div class="nav-right">
+      <button class="theme-btn" onclick="toggleTheme()" id="theme-btn"><svg id="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"/></svg></button>
+      <button class="btn-ghost" onclick="goPage('login')">Log in</button>
+      <button class="btn-primary" onclick="goPage('signup')"><span class="dot"></span>Start free trial</button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="hero-section">
+    <div class="hero-glow"></div>
+    <div class="hero-pill">EPIC — Ecom Price Calculator v1</div>
+    <h1 class="hero-h1">Price <em>smarter.</em><br>Sell bigger.</h1>
+    <p class="hero-sub">The only calculator built for Indian e-commerce sellers. Know your exact profit before you list — across Amazon, Flipkart, Myntra &amp; more.</p>
+    <div class="hero-ctas">
+      <button class="btn-hero btn-hero-p" onclick="goPage('signup')">● Start 3-day free trial</button>
+      <button class="btn-hero btn-hero-s" onclick="goPage('features')">See all features →</button>
+    </div>
+    <!-- mockup -->
+    <div class="hero-mockup">
+      <div class="mockup-bar">
+        <div class="mockup-dot" style="background:#ff5f57"></div>
+        <div class="mockup-dot" style="background:#ffbd2e"></div>
+        <div class="mockup-dot" style="background:#28ca41"></div>
+        <div class="mockup-url">epic.raimage.design/dashboard</div>
+      </div>
+      <div class="mockup-body">
+        <div class="mockup-inputs">
+          <div class="mock-field"><span class="mfl">Raw material</span><span class="mfv">₹200</span></div>
+          <div class="mock-field"><span class="mfl">Packaging</span><span class="mfv">₹22</span></div>
+          <div class="mock-field"><span class="mfl">Commission</span><span class="mfv">10%</span></div>
+          <div class="mock-field"><span class="mfl">Forward shipping</span><span class="mfv">₹55</span></div>
+          <div class="mock-field"><span class="mfl">GST slab</span><span class="mfv">18%</span></div>
+          <div class="mock-field"><span class="mfl">Return rate</span><span class="mfv">12%</span></div>
+        </div>
+        <div class="mockup-result">
+          <div class="mr-price">₹618</div>
+          <div class="mr-label">Min. sell price (MRP)</div>
+          <div class="mr-stat"><span class="ms-k">Net profit</span><span class="ms-v green">₹124</span></div>
+          <div class="mr-stat"><span class="ms-k">Net margin</span><span class="ms-v green">20.1%</span></div>
+          <div class="mr-stat"><span class="ms-k">ROI on COGS</span><span class="ms-v green">62%</span></div>
+          <div class="mr-stat"><span class="ms-k">Returns risk</span><span class="ms-v orange">₹28/unit</span></div>
+          <div class="mr-stat"><span class="ms-k">Monthly (100u)</span><span class="ms-v green">₹12,400</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Features -->
+  <div class="land-section">
+    <div class="sec-eyebrow">What EPIC does</div>
+    <div class="sec-h2">Everything to <em>price profitably</em></div>
+    <div class="sec-sub">Built for Indian sellers. Every fee, every tax, every risk — accounted for.</div>
+    <div class="feat-grid">
+      <div class="feat-card hi">
+        <div class="fc-num">{ 01 }</div>
+        <div class="fc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg></div>
+        <div class="fc-title">Real-time Calculation</div>
+        <div class="fc-desc">Every keystroke updates your MRP instantly. No buttons, no lag.</div>
+      </div>
+      <div class="feat-card">
+        <div class="fc-num">{ 02 }</div>
+        <div class="fc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 002.25 1.016c.896 0 1.7-.393 2.25-1.016a3.001 3.001 0 003.75.614m-16.5 0a3.004 3.004 0 01-.621-4.72L4.318 3.44A1.5 1.5 0 015.378 3h13.243a1.5 1.5 0 011.06.44l1.19 1.189a3 3 0 01-.621 4.72m-13.5 8.65h3.75a.75.75 0 00.75-.75V13.5a.75.75 0 00-.75-.75H6.75a.75.75 0 00-.75.75v3.75c0 .415.336.75.75.75z"/></svg></div>
+        <div class="fc-title">8+ Platforms</div>
+        <div class="fc-desc">Amazon, Flipkart, Myntra, Meesho, Nykaa, AJIO — auto fee settings.</div>
+      </div>
+      <div class="feat-card">
+        <div class="fc-num">{ 03 }</div>
+        <div class="fc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg></div>
+        <div class="fc-title">GST Engine</div>
+        <div class="fc-desc">All GST slabs (0–28%) with ITC, TCS, TDS — all Indian tax norms.</div>
+      </div>
+      <div class="feat-card">
+        <div class="fc-num">{ 04 }</div>
+        <div class="fc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"/></svg></div>
+        <div class="fc-title">Returns &amp; RTO</div>
+        <div class="fc-desc">RTO, reverse ship, restock, NDR, COD — all weighted by your return rate.</div>
+      </div>
+      <div class="feat-card">
+        <div class="fc-num">{ 05 }</div>
+        <div class="fc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z"/></svg></div>
+        <div class="fc-title">Saved Presets</div>
+        <div class="fc-desc">Save unlimited product configs. Load any preset instantly by name.</div>
+      </div>
+      <div class="feat-card hi">
+        <div class="fc-num">{ 06 }</div>
+        <div class="fc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 01-1.125-1.125M3.375 19.5h7.5m-7.5 0V5.625m17.25 13.875V5.625m0 0a1.125 1.125 0 00-1.125-1.125H4.5A1.125 1.125 0 003.375 5.625m17.25 0h-1.5m-15.75 0h1.5"/></svg></div>
+        <div class="fc-title">Bulk SKU Mode</div>
+        <div class="fc-desc">Upload CSV — get MRP, margin, ROI for every product in one go.</div>
+      </div>
+      <div class="feat-card">
+        <div class="fc-num">{ 07 }</div>
+        <div class="fc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m.75 12l3 3m0 0l3-3m-3 3v-6m-1.5-9H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg></div>
+        <div class="fc-title">PDF &amp; CSV Export</div>
+        <div class="fc-desc">Download branded PDF reports or export CSV for teams and accountants.</div>
+      </div>
+      <div class="feat-card">
+        <div class="fc-num">{ 08 }</div>
+        <div class="fc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z"/></svg></div>
+        <div class="fc-title">WhatsApp Share</div>
+        <div class="fc-desc">Share full price breakdowns with suppliers or team via WhatsApp.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Steps -->
+  <div class="steps-wrap">
+    <div class="steps-inner">
+      <div class="sec-eyebrow" style="text-align:center">How it works</div>
+      <div class="sec-h2" style="text-align:center">3 steps to <em>profit clarity</em></div>
+      <div class="steps-grid">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div class="step-title">Enter your costs</div>
+          <div class="step-desc">Add raw material, packing, labour, freight — every cost that eats your margin.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div class="step-title">Select platform</div>
+          <div class="step-desc">Pick Amazon, Flipkart, or any platform. EPIC auto-sets all fees.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div class="step-title">Get your price</div>
+          <div class="step-desc">See MRP, profit, margin %, ROI, and monthly earnings — instantly.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pricing -->
+  <div class="land-section" style="text-align:center">
+    <div class="sec-eyebrow">Pricing</div>
+    <div class="sec-h2">Start free. <em>Upgrade when ready.</em></div>
+    <div class="price-grid">
+      <div class="price-card">
+        <div class="pc-badge pc-free-badge">Free Trial</div>
+        <div class="pc-name">Try EPIC</div>
+        <div class="pc-sub">No credit card required</div>
+        <div class="pc-amount"><span class="amt">₹0</span><span class="per">/ 3 days</span></div>
+        <button class="pc-btn pc-free-btn" onclick="goPage('signup')">Start for free</button>
+        <ul class="pc-feat">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.5 12.75l6 6 9-13.5"/></svg>Full calculator access</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.5 12.75l6 6 9-13.5"/></svg>All 8+ platforms</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.5 12.75l6 6 9-13.5"/></svg>PDF + CSV export</li>
+          <li class="no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 18L18 6M6 6l12 12"/></svg>After 3 days — upgrade needed</li>
+        </ul>
+      </div>
+      <div class="price-card pro-card">
+        <div class="pc-badge pc-pro-badge">● Most Popular</div>
+        <div class="pc-name">EPIC Pro</div>
+        <div class="pc-sub">Everything, unlimited.</div>
+        <div class="pc-amount"><span class="amt">₹99</span><span class="per" style="color:rgba(240,237,230,.5)">/ month</span></div>
+        <div class="pc-trial">3-day free trial included — no card at signup</div>
+        <button class="pc-btn pc-pro-btn" onclick="goPage('signup')">Get started free</button>
+        <ul class="pc-feat">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.5 12.75l6 6 9-13.5"/></svg>Everything in trial</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.5 12.75l6 6 9-13.5"/></svg>Unlimited saved presets</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.5 12.75l6 6 9-13.5"/></svg>Calculation history</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.5 12.75l6 6 9-13.5"/></svg>Bulk SKU mode</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.5 12.75l6 6 9-13.5"/></svg>WhatsApp sharing</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.5 12.75l6 6 9-13.5"/></svg>Priority support</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-strip">
+    <div class="ct-eye">Ready?</div>
+    <div class="ct-h" style="color:var(--tx)">Start free. No card needed.</div>
+    <div class="ct-sub">3 days free. Then ₹99/month. Cancel anytime.</div>
+    <button class="btn-primary" style="height:48px;padding:0 32px;font-size:14px" onclick="goPage('signup')"><span class="dot"></span>Create free account →</button>
+  </div>
+
+  <!-- Footer -->
+  <footer class="land-footer">
+    <div class="lf-grid">
+      <div class="lf-brand">
+        <div class="nav-logo" style="cursor:default">
+          <div class="badge">E</div><span>EPIC</span>
+        </div>
+        <p>The smart pricing calculator for Indian e-commerce sellers. Built by sellers, for sellers.</p>
+      </div>
+      <div><div class="lf-title">Product</div><div class="lf-links"><a onclick="goPage('features')">Features</a><a onclick="goPage('pricing')">Pricing</a><a onclick="goPage('signup')">Start free trial</a></div></div>
+      <div><div class="lf-title">Account</div><div class="lf-links"><a onclick="goPage('login')">Log in</a><a onclick="goPage('signup')">Sign up</a><a onclick="goPage('billing')">Billing</a></div></div>
+      <div><div class="lf-title">Legal</div><div class="lf-links"><a onclick="showLegal('terms')">Terms of Use</a><a onclick="showLegal('privacy')">Privacy Policy</a></div></div>
+    </div>
+    <div class="lf-bottom">
+      <span>© 2026 Sumit Rai — Raimage Design. All Rights Reserved.</span>
+      <span>EPIC — Ecom Price Calculator v1</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════════════ SIGNUP ══════════════════ -->
+<div class="page" id="page-signup">
+  <div class="auth-wrap">
+    <div class="auth-left">
+      <div class="al-logo" onclick="goPage('landing')"><div class="badge">E</div><span>EPIC</span></div>
+      <div class="al-content">
+        <h2>Price smarter.<br><em>Sell bigger.</em></h2>
+        <p>Join Indian sellers who know their exact profit before they list.</p>
+        <div class="al-feats">
+          <div class="al-feat"><div class="al-feat-dot"></div><span>Real-time calculations across 8+ platforms</span></div>
+          <div class="al-feat"><div class="al-feat-dot"></div><span>GST, TCS, returns — all accounted for</span></div>
+          <div class="al-feat"><div class="al-feat-dot"></div><span>Bulk SKU mode — process hundreds at once</span></div>
+          <div class="al-feat"><div class="al-feat-dot"></div><span>3-day free trial — no card needed</span></div>
+        </div>
+      </div>
+      <div class="al-footer">© 2026 Sumit Rai — Raimage Design</div>
+    </div>
+    <div class="auth-right">
+      <div class="auth-box">
+        <div class="trial-notice">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="M21 11.25v8.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5v-8.25M12 4.875A2.625 2.625 0 1019.5 6.75H12m0-1.875A2.625 2.625 0 104.5 6.75H12m0-1.875v1.875m0 0H8.25M12 6.75H15.75M3 10.5h7.5m0 0V21m0-10.5H12m0 10.5V10.5"/></svg>
+          <p><strong>3-day free trial</strong> — full access, no credit card required.</p>
+        </div>
+        <div class="auth-title">Create account</div>
+        <div class="auth-sub">Already have one? <a onclick="goPage('login')">Log in here</a></div>
+        <div class="fg"><label class="fl">Full name</label><input type="text" id="su-name" class="fi" placeholder="Sumit Rai"></div>
+        <div class="fg"><label class="fl">Email address</label><input type="email" id="su-email" class="fi" placeholder="you@example.com"><div class="ferr" id="su-email-err">Please enter a valid email</div></div>
+        <div class="fg"><label class="fl">Password</label><input type="password" id="su-pass" class="fi" placeholder="Min. 8 characters"><div class="ferr" id="su-pass-err">Password must be at least 8 characters</div></div>
+        <button class="btn-submit" onclick="doSignup()">Create account — Start free trial →</button>
+        <div class="auth-note">By signing up you agree to our <a onclick="showLegal('terms')">Terms</a> and <a onclick="showLegal('privacy')">Privacy Policy</a></div>
+        <div class="auth-switch">Already have an account? <a onclick="goPage('login')">Log in</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ LOGIN ══════════════════ -->
+<div class="page" id="page-login">
+  <div class="auth-wrap">
+    <div class="auth-left">
+      <div class="al-logo" onclick="goPage('landing')"><div class="badge">E</div><span>EPIC</span></div>
+      <div class="al-content">
+        <h2>Welcome<br><em>back.</em></h2>
+        <p>Your pricing data is waiting. Log in and get back to selling profitably.</p>
+        <div class="al-feats">
+          <div class="al-feat"><div class="al-feat-dot"></div><span>Your presets are saved and ready</span></div>
+          <div class="al-feat"><div class="al-feat-dot"></div><span>Calculation history preserved</span></div>
+          <div class="al-feat"><div class="al-feat-dot"></div><span>All platforms still configured</span></div>
+        </div>
+      </div>
+      <div class="al-footer">© 2026 Sumit Rai — Raimage Design</div>
+    </div>
+    <div class="auth-right">
+      <div class="auth-box">
+        <div class="auth-title">Log in to EPIC</div>
+        <div class="auth-sub">New here? <a onclick="goPage('signup')">Create a free account</a></div>
+        <div class="fg"><label class="fl">Email address</label><input type="email" id="li-email" class="fi" placeholder="you@example.com"><div class="ferr" id="li-email-err">Please enter a valid email</div></div>
+        <div class="fg"><label class="fl">Password</label><input type="password" id="li-pass" class="fi" placeholder="Your password"><div class="ferr" id="li-pass-err">Please enter your password</div></div>
+        <div style="text-align:right;margin:-6px 0 14px"><a style="font-size:12px;font-family:var(--fm);cursor:pointer" onclick="showToast('Password reset link sent to your email')">Forgot password?</a></div>
+        <button class="btn-submit" onclick="doLogin()">Log in to dashboard →</button>
+        <div class="auth-switch">Don't have an account? <a onclick="goPage('signup')">Start free trial</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ DASHBOARD ══════════════════ -->
+<div class="page" id="page-dashboard">
+  <div class="dash-layout">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="sb-logo" onclick="goPage('landing')">
+        <div class="badge">E</div><span>EPIC</span>
+      </div>
+      <div class="sb-section">Main</div>
+      <div class="sb-item active" id="sbi-calc" onclick="showTab('calc',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="M15.75 15.75V18m-7.5-6.75h.008v.008H8.25v-.008zm0 2.25h.008v.008H8.25v-.008zm0 2.25h.008v.008H8.25v-.008zm2.498-4.501h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008v-.008zm2.504-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008v-.008zm2.498-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008v-.008zM8.25 6h7.5v2.25h-7.5V6zM12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25z"/></svg>
+        Calculator
+      </div>
+      <div class="sb-item" id="sbi-hist" onclick="showTab('hist',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        History
+      </div>
+      <div class="sb-item" id="sbi-bulk" onclick="openModal('bulk-modal')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 01-1.125-1.125M3.375 19.5h7.5m-7.5 0V5.625m17.25 13.875V5.625m0 0a1.125 1.125 0 00-1.125-1.125H4.5A1.125 1.125 0 003.375 5.625m17.25 0h-1.5m-15.75 0h1.5"/></svg>
+        Bulk SKU
+      </div>
+      <div class="sb-section">Account</div>
+      <div class="sb-item" onclick="goPage('billing')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"/></svg>
+        Billing
+      </div>
+      <div class="sb-item" onclick="goPage('profile')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
+        Profile
+      </div>
+      <div class="sb-item" onclick="doLogout()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"/></svg>
+        Log out
+      </div>
+      <div class="sb-bottom">
+        <button class="theme-btn" onclick="toggleTheme()" style="width:100%;border-radius:8px;gap:8px;height:34px;justify-content:center;margin-bottom:10px;font-size:11px;font-family:var(--fm)" id="dash-theme-btn">
+          <svg id="dash-theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><path stroke-linecap="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"/></svg>
+          <span id="dash-theme-lbl">Light mode</span>
+        </button>
+        <div class="trial-box">
+          <div class="tb-label">Free Trial</div>
+          <div class="tb-days" id="tb-days">2 days left</div>
+          <div class="tb-bar"><div class="tb-fill" id="tb-fill" style="width:66%"></div></div>
+          <button class="tb-btn" onclick="goPage('billing')">Upgrade — ₹99/mo</button>
+        </div>
+        <div class="sb-user">
+          <div class="sb-avatar" id="sb-avatar">SR</div>
+          <div class="sb-user-info">
+            <div class="sb-user-name" id="sb-name">Sumit Rai</div>
+            <div class="sb-user-plan">Free Trial · 2 days</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main -->
+    <div class="dash-main">
+
+      <!-- ── CALCULATOR TAB ── -->
+      <div id="tab-calc">
+        <div class="dash-header">
+          <div class="dh-left">
+            <h2>Price Calculator</h2>
+            <p>Set your costs → get minimum selling price + full profit breakdown</p>
+          </div>
+          <div class="dh-right">
+            <button class="dash-btn" onclick="openShareModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z"/></svg>Share</button>
+            <button class="dash-btn primary" onclick="openModal('preset-modal');renderPresets()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z"/></svg>Presets</button>
+          </div>
+        </div>
+
+        <!-- Stat row -->
+        <div class="stat-row">
+          <div class="stat-card ac-card">
+            <div class="sc-label">Min. Sell Price (MRP)</div>
+            <div class="sc-val ac" id="s-msp">₹—</div>
+            <div class="sc-sub" id="s-msp-sub">auto-calculated</div>
+          </div>
+          <div class="stat-card">
+            <div class="sc-label">Net Profit / Unit</div>
+            <div class="sc-val" id="s-profit">₹—</div>
+            <div class="sc-sub" id="s-profit-sub">—</div>
+          </div>
+          <div class="stat-card">
+            <div class="sc-label">Net Margin</div>
+            <div class="sc-val" id="s-margin">—%</div>
+            <div class="sc-sub" id="s-roi">ROI —%</div>
+          </div>
+          <div class="stat-card">
+            <div class="sc-label">Monthly Profit</div>
+            <div class="sc-val" id="s-monthly">₹—</div>
+            <div class="sc-sub" id="s-units">100 units</div>
+          </div>
+        </div>
+
+        <!-- Product ID -->
+        <div class="pid-row" id="pid-row">
+          <div class="pid-label">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="13" height="13"><rect x="2" y="2" width="12" height="12" rx="2"/><path d="M5 6h6M5 10h4"/></svg>
+            External Product ID
+          </div>
+          <input type="text" class="pid-in" id="pid-in" placeholder="e.g. B08N5WRWNW" maxlength="60">
+          <div class="pid-div"></div>
+          <div class="pid-type">
+            <button class="pid-tbtn" id="pid-tbtn" onclick="togglePidDD(event)">
+              <span id="pid-lbl">ASIN</span>
+              <svg class="pid-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" width="10" height="10"><path d="M3 4.5l3 3 3-3"/></svg>
+            </button>
+            <div class="pid-dd" id="pid-dd">
+              <div class="popt sel" id="po-ASIN" onclick="setPidType('ASIN')">ASIN <span class="ck">✓</span></div>
+              <div class="popt" id="po-EAN" onclick="setPidType('EAN')">EAN <span class="ck">✓</span></div>
+              <div class="popt" id="po-GTIN" onclick="setPidType('GTIN')">GTIN <span class="ck">✓</span></div>
+              <div class="popt" id="po-UPC" onclick="setPidType('UPC')">UPC <span class="ck">✓</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="pid-noid">
+          <input type="checkbox" id="no-pid" onchange="toggleNoPid()">
+          <label for="no-pid">This product does not have a Product ID</label>
+        </div>
+
+        <!-- Category -->
+        <div class="cat-section">
+          <div class="cat-hd">
+            <span class="snbadge">00</span>
+            <span style="font-size:12px;font-weight:600;color:var(--t2);text-transform:uppercase;letter-spacing:.07em">Product category</span>
+            <span class="cat-tag">Auto-sets commission</span>
+          </div>
+          <div class="cat-grid">
+            <div class="fitem">
+              <div class="fwrap">
+                <select id="category" onchange="onCategory()" style="width:100%;height:50px;padding:17px 12px 5px;background:var(--bg3);border:1.5px solid var(--bd);border-radius:var(--r);color:var(--tx);font-family:var(--fm);font-size:13px;outline:none;appearance:none;transition:border-color .15s">
+                  <option value="">— Select category —</option>
+                  <optgroup label="Fashion"><option value="apparel">Apparel / Clothing</option><option value="footwear">Footwear</option><option value="jewellery">Jewellery</option><option value="watches">Watches</option><option value="bags">Bags &amp; Luggage</option></optgroup>
+                  <optgroup label="Electronics"><option value="mobiles">Mobiles &amp; Accessories</option><option value="laptops">Laptops / Computers</option><option value="electronics">Consumer Electronics</option><option value="largeappl">Large Appliances</option><option value="smallappl">Small Appliances</option></optgroup>
+                  <optgroup label="Home &amp; Kitchen"><option value="home">Home Decor / Furnishing</option><option value="kitchen">Kitchen &amp; Dining</option><option value="tools">Tools &amp; Hardware</option></optgroup>
+                  <optgroup label="Health &amp; Beauty"><option value="beauty">Beauty &amp; Personal Care</option><option value="health">Health &amp; Wellness</option><option value="sports">Sports &amp; Fitness</option></optgroup>
+                  <optgroup label="Other"><option value="books">Books &amp; Media</option><option value="toys">Toys &amp; Games</option><option value="grocery">Grocery &amp; Gourmet</option><option value="automotive">Automotive</option><option value="custom">Other / Custom</option></optgroup>
+                </select>
+                <label class="flabel up">Product category</label>
+                <svg class="farr" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" width="10" height="10"><path d="M3 4.5l3 3 3-3"/></svg>
+              </div>
+              <span class="fhint">Auto-sets platform commission rates</span>
+            </div>
+            <div class="fitem">
+              <div class="fwrap">
+                <input type="number" id="units" value="100" min="1" oninput="calc()" placeholder=" ">
+                <label class="flabel up">Units per month</label>
+              </div>
+              <span class="fhint">For monthly P&amp;L view</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Platform tabs -->
+        <div class="ptabs" id="ptabs"></div>
+
+        <!-- Calc grid -->
+        <div class="calc-grid">
+          <!-- LEFT: Inputs -->
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <!-- COGS -->
+            <div class="card">
+              <div class="card-title"><span class="snbadge">01</span>Product Cost — COGS</div>
+              <div class="card-sub">factory · packaging · labour · freight · storage</div>
+              <div class="fgrid">
+                <div class="fitem"><div class="fwrap"><input type="number" id="raw" value="200" min="0" oninput="calc()" placeholder=" " class="hp"><span class="fsym">₹</span><label class="flabel up">Raw material</label></div><span class="fhint">Factory / wholesale</span></div>
+                <div class="fitem"><div class="fwrap"><input type="number" id="packing" value="22" min="0" oninput="calc()" placeholder=" " class="hp"><span class="fsym">₹</span><label class="flabel up">Packaging</label></div><span class="fhint">Box, wrap, tape</span></div>
+                <div class="fitem"><div class="fwrap"><input type="number" id="labour" value="30" min="0" oninput="calc()" placeholder=" " class="hp"><span class="fsym">₹</span><label class="flabel up">Labour</label></div><span class="fhint">Assembly, stitching</span></div>
+                <div class="fitem"><div class="fwrap"><input type="number" id="qc" value="5" min="0" oninput="calc()" placeholder=" " class="hp"><span class="fsym">₹</span><label class="flabel up">Quality check</label></div><span class="fhint">Per-unit QC</span></div>
+                <div class="fitem"><div class="fwrap"><input type="number" id="inbound" value="15" min="0" oninput="calc()" placeholder=" " class="hp"><span class="fsym">₹</span><label class="flabel up">Inbound freight</label></div><span class="fhint">Factory→warehouse</span></div>
+                <div class="fitem"><div class="fwrap"><input type="number" id="storage" value="10" min="0" oninput="calc()" placeholder=" " class="hp"><span class="fsym">₹</span><label class="flabel up">Storage</label></div><span class="fhint">Monthly per unit</span></div>
+                <div class="fitem"><div class="fwrap"><input type="number" id="handling" value="8" min="0" oninput="calc()" placeholder=" " class="hp"><span class="fsym">₹</span><label class="flabel up">Handling</label></div><span class="fhint">Labelling, bundling</span></div>
+                <div class="fitem"><div class="fwrap"><input type="number" id="photo" value="5" min="0" oninput="calc()" placeholder=" " class="hp"><span class="fsym">₹</span><label class="flabel up">Photo / content</label></div><span class="fhint">Amortised/listing</span></div>
+                <div class="fitem"><div class="fwrap"><input type="number" id="license" value="0" min="0" oninput="calc()" placeholder=" " class="hp"><span class="fsym">₹</span><label class="flabel up">Brand license</label></div><span class="fhint">Royalty/franchise</span></div>
+              </div>
+            </div>
+            <!-- Platform fees -->
+            <div class="card">
+              <div class="card-title"><span class="snbadge">02</span>Platform Fees<span id="ptag" style="font-family:var(--fm);font-size:10px;color:var(--ac);font-weight:400;margin-left:4px">amazon</span></div>
+              <div class="card-sub">commission · closing · shipping · gateway · tcs</div>
+              <div class="fgrid fgrid4">
+                <div class="fitem"><div class="fwrap"><input type="number" id="commission" value="10" min="0" max="40" step="0.5" oninput="calc()" placeholder=" " class="hs"><span class="fsuf">%</span><label class="flabel up">Commission</label></div><span class="fhint">Referral fee</span></div>
+                <div class="fitem"><div class="fwrap"><input type="number" id="closing" value="25" min="0" oninput="calc()" placeholder=" " class="hp"><span class="fsym">₹</span><label class="flabel up">Closing fee</label></div><span class="fhint">Per order</span></div>
+                <div class="fitem"><div class="fwrap"><input type="number" id="pickpack" value="14" min="0" oninput="calc()" placeholder=" " class="hp"><span class="fsym">₹</span><label class="flabel up">Pick &amp; pack</label></div><span class="fhint">FBA/FBF</span></div>
+                <div class="fitem"><div class="fwrap"><input type="number" id="shipping" value="55" min="0" oninput="calc()" placeholder=" " class="hp"><span class="fsym">₹</span><label class="flabel up">Fwd shipping</label></div><span class="fhint">Seller→customer</span></div>
+                <div class="fitem"><div class="fwrap"><input type="number" id="pgfee" value="2" min="0" max="5" step="0.1" oninput="calc()" placeholder=" " class="hs"><span class="fsuf">%</span><label class="flabel up">Gateway</label></div><span class="fhint">UPI/card</span></div>
+                <div class="fitem"><div class="fwrap"><input type="number" id="tcs" value="1" min="0" max="2" step="0.5" oninput="calc()" placeholder=" " class="hs"><span class="fsuf">%</span><label class="flabel up">TCS</label></div><span class="fhint">Tax at source</span></div>
+                <div class="fitem"><div class="fwrap"><input type="number" id="fixedfee" value="0" min="0" oninput="calc()" placeholder=" " class="hp"><span class="fsym">₹</span><label class="flabel up">Weight slab</label></div><span class="fhint">Heavy/oversize</span></div>
+                <div class="fitem"><div class="fwrap"><input type="number" id="miscfee" value="0" min="0" oninput="calc()" placeholder=" " class="hp"><span class="fsym">₹</span><label class="flabel up">Misc fee</label></div><span class="fhint">Subscription</span></div>
+              </div>
+            </div>
+            <!-- Returns -->
+            <div class="card">
+              <div class="card-title"><span class="snbadge">03</span>Returns, RTO &amp; Risk</div>
+              <div class="card-sub">rto · reverse ship · restock · ndr · cod</div>
+              <div class="fgrid fgrid4">
+                <div class="fitem"><div class="fwrap"><input type="number" id="rto" value="65" min="0" oninput="calc()" placeholder=" " class="hp"><span class="fsym">₹</span><label class="flabel up">RTO charge</label></div><span class="fhint">Return to origin</span></div>
+                <div class="fitem"><div class="fwrap"><input type="number" id="returnrate" value="12" min="0" max="80" oninput="calc()" placeholder=" " class="hs"><span class="fsuf">%</span><label class="flabel up">Return rate</label></div><span class="fhint">% orders</span></div>
+                <div class="fitem"><div class="fwrap"><input type="number" id="returnship" value="30" min="0" oninput="calc()" placeholder=" " class="hp"><span class="fsym">₹</span><label class="flabel up">Reverse ship</label></div><span class="fhint">Customer→WH</span></div>
+                <div class="fitem"><div class="fwrap"><input type="number" id="restock" value="15" min="0" oninput="calc()" placeholder=" " class="hp"><span class="fsym">₹</span><label class="flabel up">Restock</label></div><span class="fhint">Per returned unit</span></div>
+                <div class="fitem"><div class="fwrap"><input type="number" id="damaged" value="2" min="0" max="20" step="0.5" oninput="calc()" placeholder=" " class="hs"><span class="fsuf">%</span><label class="flabel up">Damaged/lost</label></div><span class="fhint">% of COGS</span></div>
+                <div class="fitem"><div class="fwrap"><input type="number" id="codfee" value="20" min="0" oninput="calc()" placeholder=" " class="hp"><span class="fsym">₹</span><label class="flabel up">COD fee</label></div><span class="fhint">Cash on delivery</span></div>
+                <div class="fitem"><div class="fwrap"><input type="number" id="ndr" value="20" min="0" oninput="calc()" placeholder=" " class="hp"><span class="fsym">₹</span><label class="flabel up">NDR cost</label></div><span class="fhint">Non-delivery</span></div>
+                <div class="fitem"><div class="fwrap"><input type="number" id="cancellation" value="3" min="0" max="20" oninput="calc()" placeholder=" " class="hs"><span class="fsuf">%</span><label class="flabel up">Cancel rate</label></div><span class="fhint">Pre-dispatch</span></div>
+              </div>
+            </div>
+            <!-- Tax & Marketing -->
+            <div class="card">
+              <div class="card-title"><span class="snbadge">04</span>Tax &amp; Marketing</div>
+              <div class="card-sub">gst · itc · ads · discount · overhead</div>
+              <div class="fgrid">
+                <div class="fitem"><div class="fwrap"><select id="gst" onchange="calc()"><option value="0">0% Essentials</option><option value="5">5% Basic</option><option value="12">12% Standard</option><option value="18" selected>18% Most goods</option><option value="28">28% Luxury</option></select><label class="flabel up">GST slab</label><svg class="farr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="10" height="10"><path d="M19 9l-7 7-7-7"/></svg></div><span class="fhint">IGST outward supply</span></div>
+                <div class="fitem"><div class="fwrap"><input type="number" id="itc" value="20" min="0" oninput="calc()" placeholder=" " class="hp"><span class="fsym">₹</span><label class="flabel up">ITC credit</label></div><span class="fhint">Input tax credit</span></div>
+                <div class="fitem"><div class="fwrap"><input type="number" id="tds" value="1" min="0" max="5" step="0.5" oninput="calc()" placeholder=" " class="hs"><span class="fsuf">%</span><label class="flabel up">TDS</label></div><span class="fhint">Deducted at source</span></div>
+                <div class="fitem"><div class="fwrap"><input type="number" id="ads" value="8" min="0" max="40" step="0.5" oninput="calc()" placeholder=" " class="hs"><span class="fsuf">%</span><label class="flabel up">Ads (ACoS)</label></div><span class="fhint">Sponsored PPC</span></div>
+                <div class="fitem"><div class="fwrap"><input type="number" id="extads" value="2" min="0" max="20" oninput="calc()" placeholder=" " class="hs"><span class="fsuf">%</span><label class="flabel up">Ext. marketing</label></div><span class="fhint">Meta/Insta</span></div>
+                <div class="fitem"><div class="fwrap"><input type="number" id="discount" value="0" min="0" max="60" oninput="calc()" placeholder=" " class="hs"><span class="fsuf">%</span><label class="flabel up">Discount</label></div><span class="fhint">Sale/coupon</span></div>
+                <div class="fitem"><div class="fwrap"><input type="number" id="overhead" value="10" min="0" oninput="calc()" placeholder=" " class="hp"><span class="fsym">₹</span><label class="flabel up">Overhead/VA</label></div><span class="fhint">Ops per unit</span></div>
+
+
+              </div>
+            </div>
+            <!-- Pricing target -->
+            <div class="card">
+              <div class="card-title"><span class="snbadge">05</span>Pricing Target</div>
+              <div class="card-sub">set your desired margin or override the sell price</div>
+              <div class="fgrid">
+                <div class="fitem"><div class="fwrap"><input type="number" id="margin" value="20" min="0" max="80" oninput="calc()" placeholder=" " class="hs pinned"><span class="fsuf">%</span><label class="flabel up">Target margin</label></div><span class="fhint">Minimum profit %</span></div>
+                <div class="fitem"><div class="fwrap"><input type="number" id="sellprice" min="0" oninput="doOverride()" placeholder=" " class="hp pinned"><span class="fsym">₹</span><label class="flabel up">MRP override</label></div><span class="fhint">Blank = auto-calculate</span></div>
+                <div class="fitem"><div class="fwrap"><input type="number" id="mrpceil" value="0" min="0" oninput="calc()" placeholder=" " class="hp"><span class="fsym">₹</span><label class="flabel up">MRP ceiling</label></div><span class="fhint">Max price cap (0=off)</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT: Results -->
+          <div>
+            <!-- hero result -->
+            <div class="res-hero" style="margin-bottom:12px">
+              <div class="rh-label">Recommended selling price (MRP)</div>
+              <div class="rh-val" id="r-sp">₹—</div>
+              <div class="rh-sub" id="r-sp-sub">auto-calculated</div>
+            </div>
+            <!-- metrics -->
+            <div class="met-grid">
+              <div class="met" id="met-p"><div class="met-l">Net profit / unit</div><div class="met-v" id="r-profit">₹—</div><div class="met-s" id="r-ps">—</div></div>
+              <div class="met" id="met-m"><div class="met-l">Net margin</div><div class="met-v" id="r-margin">—%</div><div class="met-s" id="r-roi">ROI —%</div></div>
+              <div class="met" id="met-mo"><div class="met-l">Monthly profit</div><div class="met-v" id="r-mo">₹—</div><div class="met-s" id="r-us">—</div></div>
+              <div class="met" id="met-be"><div class="met-l">Break-even / mo</div><div class="met-v" id="r-be">—</div><div class="met-s">units needed</div></div>
+            </div>
+            <!-- health bar -->
+            <div class="hbar">
+              <div class="hbar-top"><span>Margin health</span><span id="r-hlbl">—</span></div>
+              <div class="hbar-track"><div class="hbar-fill" id="r-hfill" style="width:0%"></div></div>
+            </div>
+            <!-- waterfall -->
+            <div class="card wf" style="margin-bottom:12px">
+              <div class="card-title" style="margin-bottom:10px">Cost breakdown</div>
+              <div class="wfr sub"><span class="wfl">Selling price</span><div class="wft"><div class="wfb" id="bsp" style="background:var(--gr);width:100%"></div></div><span class="wfv" id="wf-sp">₹—</span></div>
+              <div class="wfsep"></div>
+              <div class="wfr"><span class="wfl">COGS</span><div class="wft"><div class="wfb" id="b-cogs"></div></div><span class="wfv" id="wf-cogs">—</span></div>
+              <div class="wfr"><span class="wfl">Platform fees</span><div class="wft"><div class="wfb" id="b-pf"></div></div><span class="wfv" id="wf-pf">—</span></div>
+              <div class="wfr"><span class="wfl">Returns &amp; risk</span><div class="wft"><div class="wfb" id="b-ret"></div></div><span class="wfv" id="wf-ret">—</span></div>
+              <div class="wfr"><span class="wfl">GST (net ITC)</span><div class="wft"><div class="wfb" id="b-tax"></div></div><span class="wfv" id="wf-tax">—</span></div>
+              <div class="wfr"><span class="wfl">Ads &amp; marketing</span><div class="wft"><div class="wfb" id="b-ads"></div></div><span class="wfv" id="wf-ads">—</span></div>
+              <div class="wfr"><span class="wfl">Discount erosion</span><div class="wft"><div class="wfb" id="b-disc"></div></div><span class="wfv" id="wf-disc">—</span></div>
+              <div class="wfr"><span class="wfl">Overhead / VA</span><div class="wft"><div class="wfb" id="b-oh"></div></div><span class="wfv" id="wf-oh">—</span></div>
+              <div class="wfsep"></div>
+              <div class="wfr sub"><span class="wfl">Total cost / unit</span><div class="wft"><div class="wfb" id="b-tot" style="width:100%"></div></div><span class="wfv" id="wf-tot">—</span></div>
+              <div class="wfsep"></div>
+              <div class="wfr fin" id="wf-fin"><span class="wfl" id="wf-finl">Net profit / unit</span><div class="wft"><div class="wfb" id="b-prt" style="background:var(--gr)"></div></div><span class="wfv" id="wf-prt">—</span></div>
+            </div>
+            <!-- signals -->
+            <div class="sigs" style="margin-bottom:12px">
+              <div class="sigs-hd">Smart signals</div>
+              <div id="r-sigs"></div>
+            </div>
+            <!-- actions -->
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+              <button class="dash-btn primary" onclick="openShareModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z"/></svg>Share</button>
+              <button class="dash-btn" onclick="openModal('preset-modal');renderPresets()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z"/></svg>Presets</button>
+              <button class="dash-btn" onclick="resetCalc()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"/></svg>Reset</button>
+            </div>
+            <!-- compare -->
+            <div class="card">
+              <div class="card-title" style="margin-bottom:10px">Platform comparison</div>
+              <div class="cmp-grid" id="r-cmp"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── HISTORY TAB ── -->
+      <div id="tab-hist" style="display:none">
+        <div class="dash-header">
+          <div class="dh-left"><h2>Calculation History</h2><p>Your saved calculations</p></div>
+          <div class="dh-right"><button class="dash-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>Export all</button></div>
+        </div>
+        <div class="tbl-wrap">
+          <div class="tbl-hd"><div class="tbl-title">Recent calculations</div></div>
+          <table>
+            <thead><tr><th>Product</th><th>Platform</th><th>Sell Price</th><th>Cost</th><th>Profit</th><th>Margin</th><th>Health</th><th>Date</th></tr></thead>
+            <tbody>
+              <tr><td style="color:var(--tx);font-weight:500">Blue Kurta</td><td>Myntra</td><td style="color:var(--tx)">₹649</td><td>₹498</td><td style="color:var(--gr)">₹151</td><td style="color:var(--gr)">23.3%</td><td><span class="badge-ok">Healthy</span></td><td>18 Mar 2026</td></tr>
+              <tr><td style="color:var(--tx);font-weight:500">Wireless Earbuds</td><td>Amazon</td><td style="color:var(--tx)">₹1,299</td><td>₹1,042</td><td style="color:var(--gr)">₹257</td><td style="color:var(--gr)">19.8%</td><td><span class="badge-ok">Healthy</span></td><td>17 Mar 2026</td></tr>
+              <tr><td style="color:var(--tx);font-weight:500">Cotton Saree</td><td>Flipkart</td><td style="color:var(--tx)">₹899</td><td>₹724</td><td style="color:var(--gr)">₹175</td><td style="color:var(--gr)">19.5%</td><td><span class="badge-ok">Healthy</span></td><td>16 Mar 2026</td></tr>
+              <tr><td style="color:var(--tx);font-weight:500">Phone Case</td><td>Meesho</td><td style="color:var(--tx)">₹149</td><td>₹138</td><td style="color:var(--ye)">₹11</td><td style="color:var(--ye)">7.4%</td><td><span class="badge-warn">Thin</span></td><td>15 Mar 2026</td></tr>
+              <tr><td style="color:var(--tx);font-weight:500">Face Cream 50g</td><td>Nykaa</td><td style="color:var(--tx)">₹549</td><td>₹496</td><td style="color:var(--ye)">₹53</td><td style="color:var(--ye)">9.7%</td><td><span class="badge-warn">Thin</span></td><td>14 Mar 2026</td></tr>
+              <tr><td style="color:var(--tx);font-weight:500">Yoga Mat</td><td>Amazon</td><td style="color:var(--tx)">₹799</td><td>₹901</td><td style="color:var(--re)">-₹102</td><td style="color:var(--re)">-12.8%</td><td><span class="badge-bad">Loss</span></td><td>13 Mar 2026</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ── BULK TAB ── -->
+      <div id="tab-bulk" style="display:none">
+        <div class="dash-header">
+          <div class="dh-left"><h2>Bulk SKU Calculator</h2><p>Price all your products at once</p></div>
+          <div class="dh-right">
+            <button class="dash-btn" onclick="showToast('Template downloaded')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>Download template</button>
+            <button class="dash-btn primary" onclick="document.getElementById('bulk-file').click()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/></svg>Upload CSV</button>
+          </div>
+        </div>
+        <input type="file" id="bulk-file" accept=".csv" style="display:none">
+        <div style="background:var(--bg2);border:2px dashed var(--bd);border-radius:var(--r);padding:56px;text-align:center;cursor:pointer;transition:all .15s" onclick="document.getElementById('bulk-file').click()" onmouseover="this.style.borderColor='var(--bd2)'" onmouseout="this.style.borderColor='var(--bd)'">
+          <div style="color:var(--ac);display:flex;justify-content:center;margin-bottom:14px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="40" height="40"><path stroke-linecap="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/></svg></div>
+          <div style="font-family:var(--fs);font-size:18px;font-weight:700;margin-bottom:6px">Drop your CSV here</div>
+          <div style="font-size:13px;color:var(--t2);margin-bottom:4px">or click to upload</div>
+          <div style="font-family:var(--fm);font-size:11px;color:var(--t3)">Required: SKU, BuyPrice — Optional: Packaging, Labour, AdditionalShipping</div>
+        </div>
+      </div>
+
+    </div><!-- end dash-main -->
+  </div>
+</div>
+
+<!-- ══════════════════ FEATURES ══════════════════ -->
+<div class="page" id="page-features">
+  <nav class="nav">
+    <div class="nav-logo" onclick="goPage('landing')"><div class="badge">E</div><span>EPIC</span></div>
+    <div class="nav-links">
+      <button class="nav-link" onclick="goPage('features')">Features</button>
+      <button class="nav-link" onclick="goPage('pricing')">Pricing</button>
+      <button class="nav-link" onclick="showLegal('terms')">Legal</button>
+    </div>
+    <div class="nav-right">
+      <button class="theme-btn" onclick="toggleTheme()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16"><path stroke-linecap="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"/></svg></button>
+      <button class="btn-ghost" onclick="goPage('login')">Log in</button>
+      <button class="btn-primary" onclick="goPage('signup')"><span class="dot"></span>Start free</button>
+    </div>
+  </nav>
+  <div style="padding:100px 40px 80px;max-width:1100px;margin:0 auto">
+    <div class="sec-eyebrow">All features</div>
+    <div class="sec-h2">Built for every cost,<br>every platform, <em>every seller.</em></div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:52px">
+      <div class="card"><div style="color:var(--ac);margin-bottom:12px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><path stroke-linecap="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg></div><div style="font-family:var(--fs);font-size:15px;font-weight:700;margin-bottom:7px">Real-time Calculation</div><div style="font-size:13px;color:var(--t2);line-height:1.65">Every input update recalculates your MRP instantly — no page refresh needed.</div></div>
+      <div class="card"><div style="color:var(--ac);margin-bottom:12px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><path stroke-linecap="round" d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 002.25 1.016c.896 0 1.7-.393 2.25-1.016a3.001 3.001 0 003.75.614m-16.5 0a3.004 3.004 0 01-.621-4.72L4.318 3.44A1.5 1.5 0 015.378 3h13.243a1.5 1.5 0 011.06.44l1.19 1.189a3 3 0 01-.621 4.72m-13.5 8.65h3.75a.75.75 0 00.75-.75V13.5a.75.75 0 00-.75-.75H6.75a.75.75 0 00-.75.75v3.75c0 .415.336.75.75.75z"/></svg></div><div style="font-family:var(--fs);font-size:15px;font-weight:700;margin-bottom:7px">8+ Platforms</div><div style="font-size:13px;color:var(--t2);line-height:1.65">Amazon, Flipkart, Myntra, Meesho, JioMart, Snapdeal, Nykaa, AJIO. Add custom platforms.</div></div>
+      <div class="card"><div style="color:var(--ac);margin-bottom:12px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><path stroke-linecap="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg></div><div style="font-family:var(--fs);font-size:15px;font-weight:700;margin-bottom:7px">GST Engine</div><div style="font-size:13px;color:var(--t2);line-height:1.65">All GST slabs (0%–28%) with ITC, TCS, TDS — full Indian tax compliance.</div></div>
+      <div class="card"><div style="color:var(--ac);margin-bottom:12px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><path stroke-linecap="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"/></svg></div><div style="font-family:var(--fs);font-size:15px;font-weight:700;margin-bottom:7px">Returns &amp; RTO</div><div style="font-size:13px;color:var(--t2);line-height:1.65">Model RTO, reverse shipping, restock, NDR, and COD — weighted by your actual return rate.</div></div>
+      <div class="card"><div style="color:var(--ac);margin-bottom:12px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><path stroke-linecap="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z"/></svg></div><div style="font-family:var(--fs);font-size:15px;font-weight:700;margin-bottom:7px">Saved Presets</div><div style="font-size:13px;color:var(--t2);line-height:1.65">Save unlimited product configurations. Load any preset instantly by name.</div></div>
+      <div class="card"><div style="color:var(--ac);margin-bottom:12px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><path stroke-linecap="round" d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 01-1.125-1.125M3.375 19.5h7.5m-7.5 0V5.625m17.25 13.875V5.625m0 0a1.125 1.125 0 00-1.125-1.125H4.5A1.125 1.125 0 003.375 5.625"/></svg></div><div style="font-family:var(--fs);font-size:15px;font-weight:700;margin-bottom:7px">Bulk SKU Mode</div><div style="font-size:13px;color:var(--t2);line-height:1.65">Upload CSV — get min MRP, margin, and ROI for every product in your catalogue.</div></div>
+    </div>
+    <div style="text-align:center;margin-top:52px"><button class="btn-primary" style="height:46px;padding:0 28px;font-size:14px" onclick="goPage('signup')"><span class="dot"></span>Start free trial</button></div>
+  </div>
+  <footer class="land-footer"><div class="lf-bottom" style="border-top:none;padding-top:0"><span>© 2026 Sumit Rai — Raimage Design. All Rights Reserved.</span><span>EPIC v1</span></div></footer>
+</div>
+
+<!-- ══════════════════ PRICING ══════════════════ -->
+<div class="page" id="page-pricing">
+  <nav class="nav">
+    <div class="nav-logo" onclick="goPage('landing')"><div class="badge">E</div><span>EPIC</span></div>
+    <div class="nav-links">
+      <button class="nav-link" onclick="goPage('features')">Features</button>
+      <button class="nav-link" onclick="goPage('pricing')">Pricing</button>
+      <button class="nav-link" onclick="showLegal('terms')">Legal</button>
+    </div>
+    <div class="nav-right">
+      <button class="theme-btn" onclick="toggleTheme()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16"><path stroke-linecap="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"/></svg></button>
+      <button class="btn-ghost" onclick="goPage('login')">Log in</button>
+      <button class="btn-primary" onclick="goPage('signup')"><span class="dot"></span>Start free</button>
+    </div>
+  </nav>
+  <div style="padding:100px 40px 80px;max-width:820px;margin:0 auto;text-align:center">
+    <div class="sec-eyebrow">Pricing</div>
+    <div class="sec-h2">Simple. <em>No surprises.</em></div>
+    <p style="font-size:16px;color:var(--t2);margin:14px 0 48px;font-weight:300">3 days free. Then ₹99/month. Cancel anytime.</p>
+    <div class="price-grid" style="max-width:640px;margin:0 auto 56px">
+      <div class="price-card">
+        <div class="pc-badge pc-free-badge">Free Trial</div>
+        <div class="pc-name">Try EPIC</div>
+        <div class="pc-sub">No card required</div>
+        <div class="pc-amount"><span class="amt">₹0</span><span class="per">/ 3 days</span></div>
+        <button class="pc-btn pc-free-btn" onclick="goPage('signup')">Start free trial</button>
+        <ul class="pc-feat" style="text-align:left"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M4.5 12.75l6 6 9-13.5"/></svg>Full dashboard</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M4.5 12.75l6 6 9-13.5"/></svg>All 8+ platforms</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M4.5 12.75l6 6 9-13.5"/></svg>PDF + CSV export</li><li class="no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M6 18L18 6M6 6l12 12"/></svg>Upgrade after 3 days</li></ul>
+      </div>
+      <div class="price-card pro-card">
+        <div class="pc-badge pc-pro-badge">● Most Popular</div>
+        <div class="pc-name">EPIC Pro</div>
+        <div class="pc-sub">Everything, unlimited.</div>
+        <div class="pc-amount"><span class="amt">₹99</span><span class="per" style="color:rgba(240,237,230,.5)">/ month</span></div>
+        <div class="pc-trial">Free 3-day trial — no card at signup</div>
+        <button class="pc-btn pc-pro-btn" onclick="goPage('signup')">Get started free</button>
+        <ul class="pc-feat" style="text-align:left"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M4.5 12.75l6 6 9-13.5"/></svg>Everything in trial</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M4.5 12.75l6 6 9-13.5"/></svg>Unlimited presets</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M4.5 12.75l6 6 9-13.5"/></svg>Calculation history</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M4.5 12.75l6 6 9-13.5"/></svg>Priority support</li></ul>
+      </div>
+    </div>
+    <div style="text-align:left;max-width:640px;margin:0 auto">
+      <div style="font-family:var(--fs);font-size:22px;font-weight:700;margin-bottom:24px;text-align:center">Billing FAQs</div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div class="card"><div style="font-weight:600;margin-bottom:6px">Do I need a credit card to start?</div><div style="font-size:13px;color:var(--t2);line-height:1.65">No. Your 3-day trial starts immediately with just your email.</div></div>
+        <div class="card"><div style="font-weight:600;margin-bottom:6px">What happens after the trial?</div><div style="font-size:13px;color:var(--t2);line-height:1.65">Your dashboard shows a paywall. Upgrade via Razorpay — UPI, cards, net banking all accepted.</div></div>
+        <div class="card"><div style="font-weight:600;margin-bottom:6px">Can I cancel anytime?</div><div style="font-size:13px;color:var(--t2);line-height:1.65">Yes. Cancel from billing anytime. Access continues until end of paid period.</div></div>
+        <div class="card"><div style="font-weight:600;margin-bottom:6px">Is GST included in ₹99?</div><div style="font-size:13px;color:var(--t2);line-height:1.65">₹99 + 18% GST. Invoice available in billing for expense claims.</div></div>
+      </div>
+    </div>
+  </div>
+  <footer class="land-footer"><div class="lf-bottom" style="border-top:none;padding-top:0"><span>© 2026 Sumit Rai — Raimage Design. All Rights Reserved.</span><span>EPIC v1</span></div></footer>
+</div>
+
+<!-- ══════════════════ BILLING ══════════════════ -->
+<div class="page" id="page-billing">
+  <div class="dash-layout">
+    <div class="sidebar">
+      <div class="sb-logo" onclick="goPage('landing')"><div class="badge">E</div><span>EPIC</span></div>
+      <div class="sb-section">Main</div>
+      <div class="sb-item" onclick="goPage('dashboard')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="M15.75 15.75V18m-7.5-6.75h.008v.008H8.25v-.008zm0 2.25h.008v.008H8.25v-.008zm0 2.25h.008v.008H8.25v-.008zm2.498-4.501h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008v-.008zm2.504-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008v-.008zm2.498-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008v-.008zM8.25 6h7.5v2.25h-7.5V6zM12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25z"/></svg>Calculator</div>
+      <div class="sb-section">Account</div>
+      <div class="sb-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"/></svg>Billing</div>
+      <div class="sb-item" onclick="goPage('profile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>Profile</div>
+      <div class="sb-item" onclick="doLogout()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"/></svg>Log out</div>
+      <div class="sb-bottom">
+        <div class="sb-user"><div class="sb-avatar" id="billing-avatar">SR</div><div class="sb-user-info"><div class="sb-user-name" id="billing-name">Sumit Rai</div><div class="sb-user-plan">Free Trial</div></div></div>
+      </div>
+    </div>
+    <div class="dash-main">
+      <div class="dash-header"><div class="dh-left"><h2>Billing</h2><p>Manage your subscription and payments</p></div></div>
+      <div class="billing-grid">
+        <div class="card">
+          <div style="font-family:var(--fm);font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px">Current plan</div>
+          <div class="bc-plan">Free Trial</div>
+          <div class="bc-price">₹0 <span>/ 3 days</span></div>
+          <div class="bc-sub">Expires in 2 days</div>
+          <div class="trial-count">
+            <div class="tc-l">Trial countdown</div>
+            <div class="tc-days">2 days remaining</div>
+            <div style="font-size:12px;color:var(--t2)">Expires 20 Mar 2026</div>
+            <div class="tc-bar"><div class="tc-fill" style="width:66%"></div></div>
+          </div>
+          <div style="font-size:13px;color:var(--t2);line-height:1.65">After your trial, dashboard will be locked until you upgrade.</div>
+        </div>
+        <div class="card pro-card">
+          <div style="font-family:var(--fm);font-size:10px;color:var(--ac);text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px">Upgrade to</div>
+          <div class="bc-plan" style="color:var(--ac)">EPIC Pro</div>
+          <div class="bc-price" style="color:#c8f060">₹99 <span>/ month</span></div>
+          <div class="bc-sub">Billed monthly · Cancel anytime</div>
+          <ul class="pc-feat" style="margin-bottom:20px"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M4.5 12.75l6 6 9-13.5"/></svg>Unlimited saved presets</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M4.5 12.75l6 6 9-13.5"/></svg>All platforms + history</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M4.5 12.75l6 6 9-13.5"/></svg>Bulk SKU processing</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M4.5 12.75l6 6 9-13.5"/></svg>Priority support</li></ul>
+          <button class="pc-btn pc-pro-btn" onclick="doRazorpay()">Upgrade Now — ₹99/month</button>
+          <div style="font-family:var(--fm);font-size:10px;color:rgba(240,237,230,.35);text-align:center;margin-top:10px">Powered by Razorpay · UPI · Cards · Net Banking</div>
+        </div>
+      </div>
+      <div class="tbl-wrap">
+        <div class="tbl-hd"><div class="tbl-title">Payment history</div></div>
+        <table><thead><tr><th>Date</th><th>Plan</th><th>Amount</th><th>Status</th></tr></thead>
+        <tbody><tr><td colspan="4" style="text-align:center;padding:28px;color:var(--t3)">No payments yet — upgrade to start your subscription</td></tr></tbody></table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ PROFILE ══════════════════ -->
+<div class="page" id="page-profile">
+  <div class="dash-layout">
+    <div class="sidebar">
+      <div class="sb-logo" onclick="goPage('landing')"><div class="badge">E</div><span>EPIC</span></div>
+      <div class="sb-section">Main</div>
+      <div class="sb-item" onclick="goPage('dashboard')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="M15.75 15.75V18m-7.5-6.75h.008v.008H8.25v-.008zm0 2.25h.008v.008H8.25v-.008zm0 2.25h.008v.008H8.25v-.008zm2.498-4.501h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008v-.008zm2.504-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008v-.008zm2.498-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008v--008zM8.25 6h7.5v2.25h-7.5V6zM12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25z"/></svg>Calculator</div>
+      <div class="sb-section">Account</div>
+      <div class="sb-item" onclick="goPage('billing')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"/></svg>Billing</div>
+      <div class="sb-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>Profile</div>
+      <div class="sb-item" onclick="doLogout()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"/></svg>Log out</div>
+      <div class="sb-bottom"><div class="sb-user"><div class="sb-avatar" id="prof-avatar">SR</div><div class="sb-user-info"><div class="sb-user-name" id="prof-name">Sumit Rai</div><div class="sb-user-plan">Free Trial</div></div></div></div>
+    </div>
+    <div class="dash-main">
+      <div class="dash-header"><div class="dh-left"><h2>Profile</h2><p>Manage your account details</p></div></div>
+      <div class="profile-grid">
+        <div class="card">
+          <div class="card-title" style="margin-bottom:18px"><span class="snbadge">Info</span>Personal details</div>
+          <div class="fg"><label class="fl">Full name</label><input type="text" id="p-name" class="fi" value="Sumit Rai"></div>
+          <div class="fg"><label class="fl">Email address</label><input type="email" id="p-email" class="fi" value="sumit@raimage.design"></div>
+          <button class="dash-btn primary" style="margin-top:6px" onclick="saveProfile()">Save changes</button>
+        </div>
+        <div class="card">
+          <div class="card-title" style="margin-bottom:18px"><span class="snbadge">Security</span>Change password</div>
+          <div class="fg"><label class="fl">Current password</label><input type="password" class="fi" placeholder="Current password"></div>
+          <div class="fg"><label class="fl">New password</label><input type="password" class="fi" placeholder="New password"></div>
+          <div class="fg"><label class="fl">Confirm new password</label><input type="password" class="fi" placeholder="Confirm new password"></div>
+          <button class="dash-btn primary" style="margin-top:6px" onclick="showToast('Password updated')">Update password</button>
+        </div>
+      </div>
+      <div class="card" style="margin-top:16px;border-color:color-mix(in srgb,var(--re) 25%,var(--bd))">
+        <div style="font-family:var(--fs);font-size:14px;font-weight:700;color:var(--re);margin-bottom:6px">Danger zone</div>
+        <div style="font-size:13px;color:var(--t2);margin-bottom:14px">Permanently delete your account and all data. Cannot be undone.</div>
+        <button style="height:36px;padding:0 16px;border-radius:var(--r);border:1px solid var(--re);background:transparent;color:var(--re);font-size:12px;cursor:pointer;transition:all .15s;font-family:var(--fm)" onmouseover="this.style.background='color-mix(in srgb,var(--re) 10%,transparent)'" onmouseout="this.style.background='transparent'">Delete account</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ LEGAL ══════════════════ -->
+<div class="page" id="page-legal">
+  <nav class="nav">
+    <div class="nav-logo" onclick="goPage('landing')"><div class="badge">E</div><span>EPIC</span></div>
+    <div class="nav-right">
+      <button class="theme-btn" onclick="toggleTheme()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16"><path stroke-linecap="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"/></svg></button>
+      <button class="btn-ghost" onclick="goPage('login')">Log in</button>
+      <button class="btn-primary" onclick="goPage('signup')"><span class="dot"></span>Start free</button>
+    </div>
+  </nav>
+  <div class="legal-page">
+    <div class="legal-tabs">
+      <div class="ltab active" id="lt-terms" onclick="showLegalTab('terms')">Terms of Use</div>
+      <div class="ltab" id="lt-privacy" onclick="showLegalTab('privacy')">Privacy Policy</div>
+    </div>
+    <div id="legal-terms">
+      <h1>Terms of Use</h1><div class="legal-date">Effective: 1 Jan 2026 · Updated: 18 Mar 2026</div>
+      <h2>1. Acceptance</h2><p>By using EPIC — Ecom Price Calculator, you agree to these Terms. EPIC is operated by Sumit Rai, trading as Raimage Design.</p>
+      <h2>2. Service</h2><p>EPIC is a SaaS tool for Indian e-commerce sellers to calculate selling prices, profit margins, and cost breakdowns across multiple platforms.</p>
+      <h2>3. Free Trial</h2><p>New users receive a 3-day free trial with full access. No credit card required to start. After trial, access is restricted unless a subscription is activated.</p>
+      <h2>4. Payment</h2><p>The paid plan is ₹99/month + GST (18%). Processed via Razorpay. You authorise monthly recurring charges. Cancel anytime.</p>
+      <h2>5. Cancellation &amp; Refunds</h2><p>Cancel anytime via billing. Access continues until the billing period ends. No partial-month refunds except as required by law.</p>
+      <h2>6. Accuracy</h2><p>Calculations are estimates based on your inputs and publicly available fee data. EPIC is not liable for business decisions made based on these estimates.</p>
+      <h2>7. Intellectual Property</h2><p>All content, code, and branding belong to Sumit Rai / Raimage Design. You may not copy or redistribute without written permission.</p>
+      <h2>8. Governing Law</h2><p>Governed by Indian law. Disputes subject to Indian courts.</p>
+      <h2>9. Contact</h2><p>sumit@raimage.design</p>
+    </div>
+    <div id="legal-privacy" style="display:none">
+      <h1>Privacy Policy</h1><div class="legal-date">Effective: 1 Jan 2026 · Updated: 18 Mar 2026</div>
+      <h2>1. What We Collect</h2><p>Name, email, hashed password, and calculation data/presets you create.</p>
+      <h2>2. How We Use It</h2><ul><li>To provide and operate EPIC</li><li>To manage your account and subscription</li><li>To send billing notifications</li><li>To improve the product</li></ul>
+      <h2>3. Data Storage</h2><p>Preset data is stored in your browser (localStorage). We do not sell or share personal data with third parties for marketing.</p>
+      <h2>4. Payments</h2><p>Handled by Razorpay. We never store card or banking details. See Razorpay's privacy policy for their practices.</p>
+      <h2>5. Cookies</h2><p>Essential session cookies only. No third-party tracking or advertising cookies.</p>
+      <h2>6. Your Rights</h2><p>Request access, correction, or deletion of your data at any time. Account deletion removes all data within 30 days.</p>
+      <h2>7. Contact</h2><p>sumit@raimage.design</p>
+    </div>
+  </div>
+  <footer class="land-footer"><div class="lf-bottom" style="border-top:none;padding-top:0"><span>© 2026 Sumit Rai — Raimage Design. All Rights Reserved.</span><span>EPIC v1</span></div></footer>
+</div>
+
+<!-- ══════════════════ 404 ══════════════════ -->
+<div class="page" id="page-404">
+  <div class="nf">
+    <div class="nf-num">404</div>
+    <h2>Page not found</h2>
+    <p>This page doesn't exist or has moved.</p>
+    <button class="btn-primary" onclick="goPage('landing')"><span class="dot"></span>Back to home</button>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════
+// STATE
+// ═══════════════════════════════════
+var PL = {
+  amazon:   {id:'amazon',  l:'Amazon',   c:10,cl:25,pp:14,sh:55,pg:2,tc:1,ff:0,mf:0,color:'#e07b00'},
+  flipkart: {id:'flipkart',l:'Flipkart', c:8, cl:20,pp:10,sh:48,pg:2,tc:1,ff:0,mf:0,color:'#1a5fc8'},
+  myntra:   {id:'myntra',  l:'Myntra',   c:20,cl:30,pp:15,sh:60,pg:2,tc:1,ff:0,mf:0,color:'#c4003a'},
+  meesho:   {id:'meesho',  l:'Meesho',   c:0, cl:0, pp:0, sh:0, pg:1.8,tc:1,ff:0,mf:0,color:'#9b26af'},
+  nykaa:    {id:'nykaa',   l:'Nykaa',    c:20,cl:25,pp:15,sh:55,pg:2,tc:1,ff:0,mf:0,color:'#fc2779'},
+  ajio:     {id:'ajio',    l:'AJIO',     c:22,cl:30,pp:15,sh:65,pg:2,tc:1,ff:0,mf:0,color:'#f97316'}
+};
+// All 8 preset platforms (reference for Add Platform modal)
+var DEF_PL = {
+  amazon:   {id:'amazon',  l:'Amazon',   c:10,cl:25,pp:14,sh:55,pg:2,tc:1,ff:0,mf:0,color:'#e07b00'},
+  flipkart: {id:'flipkart',l:'Flipkart', c:8, cl:20,pp:10,sh:48,pg:2,tc:1,ff:0,mf:0,color:'#1a5fc8'},
+  myntra:   {id:'myntra',  l:'Myntra',   c:20,cl:30,pp:15,sh:60,pg:2,tc:1,ff:0,mf:0,color:'#c4003a'},
+  meesho:   {id:'meesho',  l:'Meesho',   c:0, cl:0, pp:0, sh:0, pg:1.8,tc:1,ff:0,mf:0,color:'#9b26af'},
+  jiomart:  {id:'jiomart', l:'JioMart',  c:8, cl:15,pp:10,sh:40,pg:2,tc:1,ff:0,mf:0,color:'#0b7ef5'},
+  snapdeal: {id:'snapdeal',l:'Snapdeal', c:12,cl:20,pp:12,sh:50,pg:2,tc:1,ff:0,mf:0,color:'#e8371e'},
+  nykaa:    {id:'nykaa',   l:'Nykaa',    c:20,cl:25,pp:15,sh:55,pg:2,tc:1,ff:0,mf:0,color:'#fc2779'},
+  ajio:     {id:'ajio',    l:'AJIO',     c:22,cl:30,pp:15,sh:65,pg:2,tc:1,ff:0,mf:0,color:'#f97316'}
+};
+// Category commission rates per platform
+var CAT_RATES = {
+  apparel:    {amazon:17,flipkart:16,myntra:20,meesho:0, jiomart:12,snapdeal:14,nykaa:18,ajio:22},
+  footwear:   {amazon:15,flipkart:14,myntra:18,meesho:0, jiomart:11,snapdeal:12,nykaa:16,ajio:20},
+  jewellery:  {amazon:20,flipkart:18,myntra:20,meesho:0, jiomart:14,snapdeal:16,nykaa:20,ajio:20},
+  watches:    {amazon:13,flipkart:12,myntra:15,meesho:0, jiomart:10,snapdeal:12,nykaa:14,ajio:15},
+  bags:       {amazon:16,flipkart:15,myntra:20,meesho:0, jiomart:12,snapdeal:14,nykaa:18,ajio:20},
+  mobiles:    {amazon:4, flipkart:4, myntra:0, meesho:0, jiomart:4, snapdeal:5, nykaa:0, ajio:0},
+  laptops:    {amazon:5, flipkart:5, myntra:0, meesho:0, jiomart:5, snapdeal:6, nykaa:0, ajio:0},
+  electronics:{amazon:8, flipkart:8, myntra:0, meesho:0, jiomart:7, snapdeal:9, nykaa:0, ajio:0},
+  largeappl:  {amazon:6, flipkart:6, myntra:0, meesho:0, jiomart:6, snapdeal:7, nykaa:0, ajio:0},
+  smallappl:  {amazon:10,flipkart:9, myntra:0, meesho:0, jiomart:8, snapdeal:10,nykaa:0, ajio:0},
+  home:       {amazon:15,flipkart:14,myntra:0, meesho:0, jiomart:12,snapdeal:14,nykaa:0, ajio:0},
+  kitchen:    {amazon:14,flipkart:13,myntra:0, meesho:0, jiomart:11,snapdeal:13,nykaa:0, ajio:0},
+  tools:      {amazon:12,flipkart:11,myntra:0, meesho:0, jiomart:10,snapdeal:12,nykaa:0, ajio:0},
+  beauty:     {amazon:14,flipkart:13,myntra:20,meesho:0, jiomart:12,snapdeal:14,nykaa:20,ajio:20},
+  health:     {amazon:14,flipkart:12,myntra:0, meesho:0, jiomart:11,snapdeal:13,nykaa:16,ajio:0},
+  sports:     {amazon:12,flipkart:11,myntra:15,meesho:0, jiomart:10,snapdeal:12,nykaa:0, ajio:14},
+  books:      {amazon:5, flipkart:5, myntra:0, meesho:0, jiomart:5, snapdeal:6, nykaa:0, ajio:0},
+  toys:       {amazon:13,flipkart:12,myntra:0, meesho:0, jiomart:11,snapdeal:13,nykaa:0, ajio:0},
+  grocery:    {amazon:8, flipkart:8, myntra:0, meesho:0, jiomart:8, snapdeal:9, nykaa:0, ajio:0},
+  automotive: {amazon:12,flipkart:11,myntra:0, meesho:0, jiomart:10,snapdeal:12,nykaa:0, ajio:0}
+};
+function savePL() { try { localStorage.setItem('epic_pl', JSON.stringify(PL)); } catch(e) {} }
+var curP = 'amazon';
+var ov = false;
+var user = {name:'',email:'',initials:''};
+var trialDays = 3;
+var presets = JSON.parse(localStorage.getItem('epic_presets')||'[]');
+var theme = localStorage.getItem('epic_theme')||'dark';
+
+// ═══════════════════════════════════
+// THEME
+// ═══════════════════════════════════
+var SUN = '<path stroke-linecap="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"/>';
+var MOON = '<path stroke-linecap="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"/>';
+
+function applyTheme(t) {
+  theme = t;
+  document.documentElement.setAttribute('data-theme', t);
+  localStorage.setItem('epic_theme', t);
+  var isDark = t === 'dark';
+  var iconPath = isDark ? SUN : MOON;
+  var svgStr = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16">' + iconPath + '</svg>';
+  // Update ALL theme buttons across all pages
+  document.querySelectorAll('.theme-btn').forEach(function(b) {
+    b.innerHTML = svgStr;
+  });
+  var lbl = document.getElementById('dash-theme-lbl');
+  if (lbl) lbl.textContent = isDark ? 'Light mode' : 'Dark mode';
+  // Update meta theme-color
+  var mtc = document.querySelector('meta[name="theme-color"]');
+  if (mtc) mtc.setAttribute('content', isDark ? '#0d0d0f' : '#f5f4f0');
+}
+function toggleTheme() { applyTheme(theme === 'dark' ? 'light' : 'dark'); }
+
+// ═══════════════════════════════════
+// ROUTING
+// ═══════════════════════════════════
+function goPage(p) {
+  document.querySelectorAll('.page').forEach(function(el) { el.classList.remove('active'); });
+  var el = document.getElementById('page-' + p);
+  (el || document.getElementById('page-404')).classList.add('active');
+  window.scrollTo(0, 0);
+  if (p === 'profile') syncProfileInputs();
+  if (p === 'billing' || p === 'dashboard') { if (user.name) updateUserUI(); }
+}
+function showLegal(tab) { goPage('legal'); showLegalTab(tab); }
+function showLegalTab(tab) {
+  document.getElementById('legal-terms').style.display = tab === 'terms' ? '' : 'none';
+  document.getElementById('legal-privacy').style.display = tab === 'privacy' ? '' : 'none';
+  document.getElementById('lt-terms').className = 'ltab' + (tab === 'terms' ? ' active' : '');
+  document.getElementById('lt-privacy').className = 'ltab' + (tab === 'privacy' ? ' active' : '');
+}
+
+// ═══════════════════════════════════
+// MODALS
+// ═══════════════════════════════════
+function openModal(id) { document.getElementById(id).classList.add('show'); }
+function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+document.addEventListener('click', function(e) {
+  if (e.target.classList.contains('overlay')) e.target.classList.remove('show');
+});
+
+// ═══════════════════════════════════
+// AUTH
+// ═══════════════════════════════════
+function doSignup() {
+  var name = document.getElementById('su-name').value.trim();
+  var email = document.getElementById('su-email').value.trim();
+  var pass = document.getElementById('su-pass').value;
+  var ok = true;
+  if (!email || !email.includes('@')) { document.getElementById('su-email-err').classList.add('show'); ok = false; }
+  else document.getElementById('su-email-err').classList.remove('show');
+  if (!pass || pass.length < 8) { document.getElementById('su-pass-err').classList.add('show'); ok = false; }
+  else document.getElementById('su-pass-err').classList.remove('show');
+  if (!ok) return;
+  user.name = name || 'User';
+  user.email = email;
+  user.initials = user.name.split(' ').map(function(n){return n[0];}).join('').toUpperCase().slice(0,2);
+  trialDays = 3;
+  updateUserUI();
+  goPage('dashboard');
+  initDashboard();
+  showToast('Welcome! Your 3-day trial has started.');
+}
+
+function doLogin() {
+  var email = document.getElementById('li-email').value.trim();
+  var pass = document.getElementById('li-pass').value;
+  var ok = true;
+  if (!email || !email.includes('@')) { document.getElementById('li-email-err').classList.add('show'); ok = false; }
+  else document.getElementById('li-email-err').classList.remove('show');
+  if (!pass) { document.getElementById('li-pass-err').classList.add('show'); ok = false; }
+  else document.getElementById('li-pass-err').classList.remove('show');
+  if (!ok) return;
+  user.name = 'Sumit Rai';
+  user.email = email;
+  user.initials = 'SR';
+  trialDays = 2;
+  updateUserUI();
+  goPage('dashboard');
+  initDashboard();
+  showToast('Welcome back, ' + user.name + '!');
+}
+
+function updateUserUI() {
+  // Update all name/avatar displays across pages
+  ['sb-name','billing-name','prof-name'].forEach(function(id) {
+    var el = document.getElementById(id); if (el) el.textContent = user.name;
+  });
+  ['sb-avatar','billing-avatar','prof-avatar'].forEach(function(id) {
+    var el = document.getElementById(id); if (el) el.textContent = user.initials;
+  });
+  // Trial bar
+  var tbDays = document.getElementById('tb-days');
+  if (tbDays) tbDays.textContent = trialDays + ' day' + (trialDays !== 1 ? 's' : '') + ' left';
+  var tbFill = document.getElementById('tb-fill');
+  if (tbFill) tbFill.style.width = Math.max(0, trialDays / 3 * 100) + '%';
+  // Sync profile page inputs
+  syncProfileInputs();
+}
+
+function syncProfileInputs() {
+  var pn = document.getElementById('p-name'); if (pn && user.name) pn.value = user.name;
+  var pe = document.getElementById('p-email'); if (pe && user.email) pe.value = user.email;
+}
+
+// ═══════════════════════════════════
+// DASHBOARD INIT
+// ═══════════════════════════════════
+function initDashboard() {
+  // Restore saved platforms
+  try { var saved = localStorage.getItem('epic_pl'); if (saved) { var p = JSON.parse(saved); if (p && Object.keys(p).length) { Object.assign(PL, p); if (!PL[curP]) curP = Object.keys(PL)[0]; } } } catch(e) {}
+  showTab('calc', document.getElementById('sbi-calc'));
+  swP(curP);
+}
+function showTab(tab, el) {
+  ['calc','hist','bulk'].forEach(function(t) {
+    var e = document.getElementById('tab-' + t);
+    if (e) e.style.display = t === tab ? '' : 'none';
+  });
+  document.querySelectorAll('#page-dashboard .sb-item').forEach(function(i) { i.classList.remove('active'); });
+  if (el) el.classList.add('active');
+}
+
+// ═══════════════════════════════════
+// PLATFORM TABS
+// ═══════════════════════════════════
+function renderPTabs() {
+  var c = document.getElementById('ptabs');
+  if (!c) return;
+  c.innerHTML = '';
+  Object.values(PL).forEach(function(p) {
+    var pid = p.id;
+    var isActive = pid === curP;
+    var t = document.createElement('div');
+    t.className = 'ptab' + (isActive ? ' active' : '');
+    t.style.position = 'relative';
+    if (isActive) { t.style.background = p.color; t.style.borderColor = p.color; t.style.color = '#fff'; }
+    var dotColor = isActive ? 'rgba(255,255,255,.6)' : p.color;
+    // Build tab content
+    var dotSpan = document.createElement('span');
+    dotSpan.className = 'pdot';
+    dotSpan.style.background = dotColor;
+    var lbl = document.createTextNode(p.l);
+    var rmSpan = document.createElement('span');
+    rmSpan.className = 'ptab-rm';
+    rmSpan.textContent = '✕';
+    rmSpan.onclick = function(e) { e.stopPropagation(); removePlatform(pid); };
+    t.appendChild(dotSpan);
+    t.appendChild(lbl);
+    t.appendChild(rmSpan);
+    t.onclick = function() { swP(pid); };
+    c.appendChild(t);
+  });
+  var ab = document.createElement('div');
+  ab.className = 'add-ptab';
+  ab.textContent = '+ Add platform';
+  ab.onclick = function() { renderAddPlatformModal(); openModal('add-platform-modal'); };
+  c.appendChild(ab);
+}
+
+function removePlatform(id) {
+  if (Object.keys(PL).length <= 1) { showToast('Need at least one platform'); return; }
+  var name = PL[id].l;
+  delete PL[id];
+  savePL();
+  if (curP === id) curP = Object.keys(PL)[0];
+  renderPTabs();
+  swP(curP);
+  showToast(name + ' removed');
+}
+
+function renderAddPlatformModal() {
+  var g = document.getElementById('pgrid-presets');
+  if (!g) return;
+  g.innerHTML = '';
+  Object.values(DEF_PL).forEach(function(p) {
+    var added = !!PL[p.id];
+    var card = document.createElement('div');
+    card.className = 'pcard' + (added ? ' added' : '');
+    var nameDiv = document.createElement('div');
+    nameDiv.className = 'pcn';
+    nameDiv.style.color = p.color;
+    nameDiv.textContent = p.l;
+    var subDiv = document.createElement('div');
+    subDiv.className = 'pcs';
+    subDiv.textContent = 'Commission: ' + p.c + '%';
+    card.appendChild(nameDiv);
+    card.appendChild(subDiv);
+    if (added) {
+      var badge = document.createElement('div');
+      badge.className = 'pca';
+      badge.textContent = 'Added';
+      card.appendChild(badge);
+    } else {
+      card.onclick = (function(pid) { return function() { addPresetPlatform(pid); }; })(p.id);
+    }
+    g.appendChild(card);
+  });
+}
+
+function addPresetPlatform(id) {
+  PL[id] = Object.assign({}, DEF_PL[id]);
+  savePL();
+  renderAddPlatformModal();
+  renderPTabs();
+  calc();
+  showToast(DEF_PL[id].l + ' added');
+}
+
+function pickSwatch(el) {
+  cpColor = el.dataset.c;
+  document.querySelectorAll('.sw').forEach(function(s) { s.classList.remove('sel'); });
+  el.classList.add('sel');
+}
+
+function addCustomPlatform() {
+  var name = document.getElementById('cp-name') && document.getElementById('cp-name').value.trim();
+  if (!name) { showToast('Enter a platform name'); return; }
+  var id = 'cp_' + Date.now();
+  PL[id] = {
+    id:id, l:name, color:cpColor,
+    c: parseFloat(document.getElementById('cp-comm').value)||0,
+    cl:parseFloat(document.getElementById('cp-close').value)||0,
+    pp:parseFloat(document.getElementById('cp-pp').value)||0,
+    sh:parseFloat(document.getElementById('cp-sh').value)||0,
+    pg:parseFloat(document.getElementById('cp-pg').value)||2,
+    tc:parseFloat(document.getElementById('cp-tcs').value)||1,
+    ff:0, mf:0
+  };
+  savePL();
+  closeModal('add-platform-modal');
+  if (document.getElementById('cp-name')) document.getElementById('cp-name').value = '';
+  renderPTabs();
+  calc();
+  showToast(name + ' added');
+}
+
+function swP(pid) {
+  if (!PL[pid]) return;
+  curP = pid;
+  var d = PL[pid];
+  function sv(id, v) { var e = document.getElementById(id); if (e) e.value = v; }
+  sv('commission',d.c); sv('closing',d.cl); sv('pickpack',d.pp); sv('shipping',d.sh);
+  sv('pgfee',d.pg); sv('tcs',d.tc); sv('fixedfee',d.ff||0); sv('miscfee',d.mf||0);
+  var ptag = document.getElementById('ptag');
+  if (ptag) ptag.textContent = d.l.toLowerCase();
+  ov = false;
+  var sp = document.getElementById('sellprice'); if (sp) sp.value = '';
+  // Re-apply category commission for new platform
+  onCategory(false);
+  renderPTabs();
+  calc();
+}
+
+// ═══════════════════════════════════
+// CALCULATOR ENGINE
+// ═══════════════════════════════════
+// ── CATEGORY ──
+function onCategory(doCalc) {
+  if (doCalc === undefined) doCalc = true;
+  var cat = document.getElementById('category').value;
+  if (!cat || cat === 'custom') { if(doCalc) calc(); return; }
+  var rates = CAT_RATES[cat];
+  if (!rates) { if(doCalc) calc(); return; }
+  var rate = rates[curP];
+  if (rate !== undefined && rate > 0) {
+    var el = document.getElementById('commission'); if (el) el.value = rate;
+  }
+  if(doCalc) calc();
+}
+
+// ── PRODUCT ID ──
+var pidType = 'ASIN';
+function togglePidDD(e) {
+  e.stopPropagation();
+  var dd = document.getElementById('pid-dd');
+  var btn = document.getElementById('pid-tbtn');
+  var open = dd.classList.contains('show');
+  dd.classList.toggle('show', !open);
+  btn.classList.toggle('open', !open);
+}
+function setPidType(t) {
+  pidType = t;
+  var lbl = document.getElementById('pid-lbl'); if(lbl) lbl.textContent = t;
+  document.querySelectorAll('.popt').forEach(function(o){o.classList.remove('sel');});
+  var el = document.getElementById('po-' + t); if(el) el.classList.add('sel');
+  var dd = document.getElementById('pid-dd'); if(dd) dd.classList.remove('show');
+  var btn = document.getElementById('pid-tbtn'); if(btn) btn.classList.remove('open');
+}
+function toggleNoPid() {
+  var checked = document.getElementById('no-pid').checked;
+  var row = document.getElementById('pid-row');
+  if(row){ row.style.opacity = checked ? '0.4' : '1'; row.style.pointerEvents = checked ? 'none' : ''; }
+  if(checked){ var inp = document.getElementById('pid-in'); if(inp) inp.value = ''; }
+}
+document.addEventListener('click', function() {
+  var dd = document.getElementById('pid-dd'); if(dd) dd.classList.remove('show');
+  var btn = document.getElementById('pid-tbtn'); if(btn) btn.classList.remove('open');
+});
+
+function gv(id) { var e = document.getElementById(id); return e ? (parseFloat(e.value) || 0) : 0; }
+function fmt(n) { return '₹' + Math.abs(Math.round(n)).toLocaleString('en-IN'); }
+function fmtPlain(n) { return 'Rs.' + Math.abs(Math.round(n)).toLocaleString('en-IN'); }
+
+function doOverride() { ov = !!(document.getElementById('sellprice') && document.getElementById('sellprice').value); calc(); }
+
+function compute(pid) {
+  var d = PL[pid] || PL[curP];
+  var cogs = gv('raw')+gv('packing')+gv('labour')+gv('qc')+gv('inbound')+gv('storage')+gv('handling')+gv('photo')+gv('license')+gv('extunits');
+  var rr = gv('returnrate')/100, cr = gv('cancellation')/100;
+  var ret = gv('rto')*rr + gv('returnship')*rr + gv('restock')*rr + gv('ndr')*(cr+rr*.3) + gv('codfee')*.6 + cogs*gv('damaged')/100;
+  // Commission: use category rate for cross-platform, manual input for active
+  var cat = document.getElementById('category') ? document.getElementById('category').value : '';
+  var catRates = cat && CAT_RATES[cat] ? CAT_RATES[cat] : null;
+  var comm;
+  if (pid===curP) {
+    comm = gv('commission')/100;
+  } else {
+    comm = (catRates && catRates[pid] !== undefined ? catRates[pid] : d.c)/100;
+  }
+  var pg = d.pg/100, tc = d.tc/100, td = gv('tds')/100;
+  var gst = parseInt((document.getElementById('gst')||{value:'18'}).value||18)/100;
+  var itc = gv('itc');
+  var ads = (gv('ads')+gv('extads'))/100;
+  var disc = gv('discount')/100;
+  var oh = gv('overhead');
+  var fx = pid===curP ? (gv('closing')+gv('pickpack')+gv('shipping')+gv('fixedfee')+gv('miscfee')) : (d.cl+d.pp+d.sh+(d.ff||0)+(d.mf||0));
+  var vp = comm+pg+tc+td+gst+ads;
+  var fc = cogs+fx+ret+oh-itc;
+  var dn = 1-vp-disc-gv('margin')/100;
+  var minSP = dn > 0.01 ? fc/dn : fc*6;
+  var ceil = gv('mrpceil');
+  var sp = (pid===curP && ov) ? (parseFloat(document.getElementById('sellprice').value)||minSP) : minSP;
+  if (ceil > 0 && sp > ceil) sp = ceil;
+  var eff = sp*(1-disc);
+  var pf = eff*comm+fx+eff*pg+eff*tc+eff*td;
+  var taxN = Math.max(eff*gst-itc,0);
+  var adsA = eff*ads;
+  var da = sp*disc;
+  var tot = cogs+pf+ret+taxN+adsA+da+oh;
+  var profit = sp-tot;
+  var margin = sp > 0 ? profit/sp*100 : 0;
+  var roi = cogs > 0 ? profit/cogs*100 : 0;
+  return {sp,minSP,profit,margin,roi,tot,cogs,pf,ret,taxN,adsA,da,oh};
+}
+
+function calc() {
+  var r = compute(curP);
+  var units = gv('units')||100;
+  var mo = r.profit*units;
+  // stat cards
+  function set(id,v){var e=document.getElementById(id);if(e)e.textContent=v;}
+  function setColor(id,c){var e=document.getElementById(id);if(e)e.className=e.className.replace(/\b(ac|gr|re|or)\b/g,'').trim()+' '+c;}
+  set('s-msp', fmt(r.sp));
+  set('s-msp-sub', ov?'manual override':'auto · '+gv('margin')+'% target');
+  set('s-profit', (r.profit<0?'-':'')+fmt(r.profit));
+  setColor('s-profit', r.profit>=0?'gr':'re');
+  set('s-profit-sub', r.profit>=0?'per unit':'loss per unit');
+  set('s-margin', r.margin.toFixed(1)+'%');
+  setColor('s-margin', r.margin>=15?'gr':r.margin>=5?'or':'re');
+  set('s-roi', 'ROI '+r.roi.toFixed(1)+'%');
+  set('s-monthly', (mo<0?'-':'')+fmt(mo));
+  setColor('s-monthly', mo>=0?'gr':'re');
+  set('s-units', units+' units / mo');
+  // hero
+  set('r-sp', fmt(r.sp));
+  set('r-sp-sub', ov?'manual override':'auto-calc · '+gv('margin')+'% margin');
+  // metrics
+  function setMet(cid,vid,sid,val,sub,cls){
+    var cel=document.getElementById(cid); if(cel){}
+    var vel=document.getElementById(vid); if(vel){vel.textContent=val;vel.style.color=cls==='gr'?'var(--gr)':cls==='re'?'var(--re)':cls==='or'?'var(--or)':'var(--tx)';}
+    set(sid,sub);
+  }
+  setMet('met-p','r-profit','r-ps',(r.profit<0?'-':'')+fmt(r.profit),r.profit>=0?'per unit sold':'loss per unit',r.profit>=0?'gr':'re');
+  setMet('met-m','r-margin','r-roi',r.margin.toFixed(1)+'%','ROI '+r.roi.toFixed(1)+'%',r.margin>=15?'gr':r.margin>=5?'or':'re');
+  setMet('met-mo','r-mo','r-us',(mo<0?'-':'')+fmt(mo),units+' units / mo',mo>=0?'gr':'re');
+  var be = r.profit>0 ? Math.ceil(gv('overhead')*units/r.profit) : 999;
+  set('r-be', be>999?'999+':be);
+  // health bar
+  var hp = Math.min(Math.max(r.margin,0),40)/40*100;
+  var hf = document.getElementById('r-hfill');
+  if(hf){hf.style.width=hp+'%';hf.style.background=r.margin>=20?'var(--gr)':r.margin>=10?'var(--or)':'var(--re)';}
+  set('r-hlbl', r.margin.toFixed(1)+'% — '+(r.margin>=20?'Healthy':r.margin>=10?'Marginal':r.margin>=0?'Thin':'Loss'));
+  // waterfall
+  set('wf-sp', fmt(r.sp));
+  function wb(vid,bid,val){set(vid,'-'+fmt(val));var b=document.getElementById(bid);if(b)b.style.width=r.tot>0?Math.min(val/r.tot*100,100)+'%':'0%';}
+  wb('wf-cogs','b-cogs',r.cogs); wb('wf-pf','b-pf',r.pf); wb('wf-ret','b-ret',r.ret);
+  set('wf-tax',(r.taxN>=0?'-':'+')+fmt(r.taxN));
+  var bt=document.getElementById('b-tax');if(bt)bt.style.width=r.tot>0?Math.min(Math.abs(r.taxN)/r.tot*100,100)+'%':'0%';
+  wb('wf-ads','b-ads',r.adsA); (function(){
+    var discA=r.da||0,ohA=r.oh||0;
+    var d1=document.getElementById('wf-disc');if(d1)d1.textContent='-'+fmt(discA);
+    var b1=document.getElementById('b-disc');if(b1)b1.style.width=r.tot>0?Math.min(discA/r.tot*100,100)+'%':'0%';
+    var d2=document.getElementById('wf-oh');if(d2)d2.textContent='-'+fmt(ohA);
+    var b2=document.getElementById('b-oh');if(b2)b2.style.width=r.tot>0?Math.min(ohA/r.tot*100,100)+'%':'0%';
+  })();
+  set('wf-tot', fmt(r.tot));
+  set('wf-prt', (r.profit<0?'-':'')+fmt(r.profit));
+  set('wf-finl', r.profit>=0?'Net profit / unit':'Net loss / unit');
+  var wfin=document.getElementById('wf-fin');if(wfin)wfin.classList.toggle('bad',r.profit<0);
+  var bprt=document.getElementById('b-prt');if(bprt){bprt.style.background=r.profit>=0?'var(--gr)':'var(--re)';bprt.style.width=r.sp>0?Math.min(Math.abs(r.profit)/r.sp*100,100)+'%':'0%';}
+  // signals
+  var sigs=[];
+  var C={gr:'var(--gr)',re:'var(--re)',or:'var(--or)'};
+  if(r.margin<0)sigs.push({c:'re',t:'Selling at a loss. Min safe MRP: <b>'+fmt(r.minSP*1.05)+'</b>'});
+  else if(r.margin<10)sigs.push({c:'or',t:'Thin margin ('+r.margin.toFixed(1)+'%). Target 15–25% for e-com.'});
+  if(gv('returnrate')>20)sigs.push({c:'or',t:'Return rate <b>'+gv('returnrate')+'%</b> is high. Avg: 10–15%.'});
+  if(gv('ads')>20)sigs.push({c:'or',t:'ACoS <b>'+gv('ads')+'%</b> unsustainable. Reduce spend.'});
+  if(r.cogs/r.sp>.55)sigs.push({c:'or',t:'COGS is <b>'+(r.cogs/r.sp*100).toFixed(0)+'%</b> of SP. Ideal: below 40%.'});
+  if(r.margin>=20&&r.profit>0)sigs.push({c:'gr',t:'Healthy <b>'+r.margin.toFixed(1)+'%</b> margin. Monthly: <b>'+fmt(r.profit*units)+'</b>.'});
+  if(r.roi>60)sigs.push({c:'gr',t:'Strong ROI <b>'+r.roi.toFixed(0)+'%</b> on COGS.'});
+  if(!sigs.length)sigs.push({c:'gr',t:'All metrics balanced. Scale volume.'});
+  var se=document.getElementById('r-sigs');
+  if(se)se.innerHTML=sigs.slice(0,4).map(function(s){return'<div class="sig" style="border-left:2px solid '+C[s.c]+'">'+s.t+'</div>';}).join('');
+  // compare
+  var cg=document.getElementById('r-cmp');
+  if(cg){
+    cg.innerHTML='';
+    Object.values(PL).forEach(function(p){
+      var rp=p.id===curP?r:compute(p.id);
+      var cl=rp.margin>=15?'gr':rp.margin>=5?'or':'re';
+      var div=document.createElement('div');
+      div.className='cc'+(p.id===curP?' active':'');
+      if(p.id===curP)div.style.borderColor=p.color;
+      var valColor=cl==='gr'?'var(--gr)':cl==='or'?'var(--or)':'var(--re)';
+      div.innerHTML='<div class="cc-name">'+p.l+'</div><div class="cc-val" style="color:'+valColor+'">'+fmt(rp.sp)+'</div><div class="cc-mar">'+rp.margin.toFixed(1)+'%</div>';
+      div.onclick=function(){swP(p.id);};
+      cg.appendChild(div);
+    });
+  }
+}
+
+function resetCalc(){
+  var def={raw:200,packing:22,labour:30,qc:5,inbound:15,storage:10,handling:8,photo:5,license:0,extunits:0,rto:65,returnship:30,restock:15,codfee:20,damaged:2,ndr:20,cancellation:3,itc:20,overhead:10,units:100,returnrate:12,ads:8,extads:2,discount:0,margin:20,tds:1,fixedfee:0,miscfee:0};
+  Object.keys(def).forEach(function(k){var e=document.getElementById(k);if(e)e.value=def[k];});
+  var sp=document.getElementById('sellprice');if(sp)sp.value='';
+  var mc=document.getElementById('mrpceil');if(mc)mc.value=0;
+  var g=document.getElementById('gst');if(g)g.value='18';
+  ov=false;swP(curP);showToast('Reset complete');
+}
+
+// ═══════════════════════════════════
+// PRESETS
+// ═══════════════════════════════════
+function getSnap(){
+  var f=['raw','packing','labour','qc','inbound','storage','handling','photo','license','extunits','commission','closing','pickpack','shipping','pgfee','tcs','fixedfee','miscfee','rto','returnrate','returnship','restock','damaged','codfee','ndr','cancellation','itc','tds','ads','extads','discount','overhead','margin','units','mrpceil'];
+  var s={p:curP};f.forEach(function(k){var e=document.getElementById(k);if(e)s[k]=e.value;});
+  var g=document.getElementById('gst');if(g)s.gst=g.value;
+  return s;
+}
+function applySnap(s){
+  if(s.p&&PL[s.p])swP(s.p);
+  ['raw','packing','labour','qc','inbound','storage','handling','photo','license','extunits','commission','closing','pickpack','shipping','pgfee','tcs','fixedfee','miscfee','rto','returnrate','returnship','restock','damaged','codfee','ndr','cancellation','itc','tds','ads','extads','discount','overhead','margin','units','mrpceil','gst'].forEach(function(k){if(s[k]!==undefined){var e=document.getElementById(k);if(e)e.value=s[k];}});
+  calc();
+}
+function renderPresets(){
+  var c=document.getElementById('preset-list');if(!c)return;
+  if(!presets.length){c.innerHTML='<div class="preset-empty">No presets saved yet. Set up your costs and save below.</div>';return;}
+  c.innerHTML=presets.map(function(p,i){
+    return'<div class="preset-item" onclick="loadPreset('+i+')">'+'<div><div class="pi-name">'+p.name+'</div><div class="pi-meta">'+p.platform+' · '+p.sp+' · '+p.margin+'% · '+p.date+'</div></div>'+'<button class="pi-del" onclick="delPreset('+i+',event)">&times;</button>'+'</div>';
+  }).join('');
+}
+function loadPreset(i){applySnap(presets[i].snap);closeModal('preset-modal');showToast('"'+presets[i].name+'" loaded');}
+function delPreset(i,e){e.stopPropagation();var n=presets[i].name;presets.splice(i,1);localStorage.setItem('epic_presets',JSON.stringify(presets));renderPresets();showToast('"'+n+'" deleted');}
+function doSavePreset(){
+  var inp=document.getElementById('preset-inp');
+  var name=inp?inp.value.trim():'';
+  if(!name){showToast('Enter a preset name');return;}
+  var r=compute(curP);
+  presets.push({id:Date.now(),name:name,platform:PL[curP].l,sp:fmt(r.sp),margin:r.margin.toFixed(1)+'%',date:new Date().toLocaleDateString('en-IN'),snap:getSnap()});
+  localStorage.setItem('epic_presets',JSON.stringify(presets));
+  if(inp)inp.value='';
+  renderPresets();showToast('"'+name+'" saved');
+}
+
+// ═══════════════════════════════════
+// SHARE
+// ═══════════════════════════════════
+function openShareModal() {
+  buildShareText();
+  openModal('share-modal');
+}
+
+function buildShareText(){
+  var r=compute(curP),d=PL[curP];
+  var pidVal=document.getElementById('pid-in')?document.getElementById('pid-in').value:'—';
+  var txt='EPIC Price Report — '+d.l+'\nDate: '+new Date().toLocaleDateString('en-IN')+'\n'+'='.repeat(32)+'\nSelling Price (MRP): '+fmtPlain(r.sp)+'\nTotal Cost / Unit:   '+fmtPlain(r.tot)+'\nNet Profit / Unit:   '+fmtPlain(r.profit)+'\nNet Margin:          '+r.margin.toFixed(1)+'%\nROI on COGS:         '+r.roi.toFixed(1)+'%\nMonthly ('+gv('units')+'u): '+fmtPlain(r.profit*gv('units'))+'\n'+'='.repeat(32)+'\nCOGS:          '+fmtPlain(r.cogs)+'\nPlatform Fees: '+fmtPlain(r.pf)+'\nReturns/Risk:  '+fmtPlain(r.ret)+'\nTax (net):     '+fmtPlain(r.taxN)+'\nAds:           '+fmtPlain(r.adsA)+'\n'+'='.repeat(32)+'\n© 2026 Sumit Rai — Raimage Design\nEPIC v1';
+  var el=document.getElementById('share-prev');if(el)el.textContent=txt;
+  return txt;
+}
+function doWA(){window.open('https://wa.me/?text='+encodeURIComponent(buildShareText()),'_blank');}
+function doCopy(){navigator.clipboard.writeText(buildShareText()).then(function(){showToast('Copied to clipboard');closeModal('share-modal');});}
+
+function doExportCSV() {
+  var r = compute(curP), d = PL[curP];
+  var rows = [
+    ['Field','Value'],
+    ['Platform', d.l],
+    ['Date', new Date().toLocaleDateString('en-IN')],
+    ['Product ID', (document.getElementById('pid-in')||{value:''}).value || '—'],
+    ['Selling Price (MRP)', Math.round(r.sp)],
+    ['Total Cost / Unit', Math.round(r.tot)],
+    ['Net Profit / Unit', Math.round(r.profit)],
+    ['Net Margin %', r.margin.toFixed(1)],
+    ['ROI on COGS %', r.roi.toFixed(1)],
+    ['Monthly Profit (' + gv('units') + ' units)', Math.round(r.profit * gv('units'))],
+    ['COGS', Math.round(r.cogs)],
+    ['Platform Fees', Math.round(r.pf)],
+    ['Returns & Risk', Math.round(r.ret)],
+    ['GST (net ITC)', Math.round(r.taxN)],
+    ['Ads & Marketing', Math.round(r.adsA)],
+    ['Discount', Math.round(r.da)],
+    ['Overhead', Math.round(r.oh)]
+  ];
+  var csv = rows.map(function(row) { return row.map(function(c){return '"'+String(c).replace(/"/g,'""')+'"';}).join(','); }).join('\n');
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv], {type:'text/csv'}));
+  a.download = 'epic_report_' + d.l.toLowerCase() + '_' + Date.now() + '.csv';
+  a.click();
+  showToast('CSV exported');
+  closeModal('share-modal');
+}
+
+// ═══════════════════════════════════
+// BULK SKU
+// ═══════════════════════════════════
+function dlBulkTemplate() {
+  var csv = 'SKU,BuyPrice,Packaging,Labour,AdditionalShipping
+Product-A,200,20,30,0
+Product-B,500,40,50,20
+Product-C,150,15,25,0';
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
+  a.download = 'bulk_sku_template.csv'; a.click();
+}
+function bulkDrop(e) {
+  e.preventDefault();
+  document.getElementById('bulk-drop').style.borderColor='var(--bd)';
+  var f = e.dataTransfer.files[0]; if(f) parseBulkFile(f);
+}
+function bulkLoad(e) { var f = e.target.files[0]; if(f) parseBulkFile(f); }
+function parseBulkFile(file) {
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var lines = e.target.result.trim().split('
+');
+    var headers = lines[0].split(',').map(function(h){return h.trim().toLowerCase();});
+    var data = lines.slice(1).map(function(line){
+      var vals = line.split(','); var row = {};
+      headers.forEach(function(h,i){row[h]=(vals[i]||'').trim();});
+      return row;
+    }).filter(function(r){return r.sku||r.buyprice;});
+    renderBulkTable(data);
+  };
+  reader.readAsText(file);
+}
+function renderBulkTable(data) {
+  var oRaw=document.getElementById('raw').value, oPack=document.getElementById('packing').value;
+  var oLab=document.getElementById('labour').value, oSh=document.getElementById('shipping').value;
+  bulkRows = data.map(function(row){
+    document.getElementById('raw').value = parseFloat(row.buyprice)||gv('raw');
+    document.getElementById('packing').value = parseFloat(row.packaging)||gv('packing');
+    document.getElementById('labour').value = parseFloat(row.labour)||gv('labour');
+    document.getElementById('shipping').value = (parseFloat(oSh)||55)+(parseFloat(row.additionalshipping)||0);
+    var r = compute(curP);
+    return Object.assign({},row,{sp:Math.round(r.sp),profit:Math.round(r.profit),margin:r.margin.toFixed(1),roi:r.roi.toFixed(1),totalCost:Math.round(r.tot)});
+  });
+  document.getElementById('raw').value=oRaw; document.getElementById('packing').value=oPack;
+  document.getElementById('labour').value=oLab; document.getElementById('shipping').value=oSh;
+  var tw = document.getElementById('bulk-table-wrap');
+  tw.style.display='block';
+  tw.innerHTML='<table style="width:100%;border-collapse:collapse;font-size:11px;font-family:var(--fm)">'+
+    '<thead><tr style="background:var(--bg3)"><th style="padding:8px 11px;border-bottom:1px solid var(--bd);text-align:left;color:var(--t3);font-size:10px;text-transform:uppercase;letter-spacing:.05em">SKU</th><th style="padding:8px 11px;border-bottom:1px solid var(--bd);text-align:left;color:var(--t3);font-size:10px;text-transform:uppercase;letter-spacing:.05em">Buy ₹</th><th style="padding:8px 11px;border-bottom:1px solid var(--bd);text-align:left;color:var(--t3);font-size:10px;text-transform:uppercase;letter-spacing:.05em">Min SP ₹</th><th style="padding:8px 11px;border-bottom:1px solid var(--bd);text-align:left;color:var(--t3);font-size:10px;text-transform:uppercase;letter-spacing:.05em">Cost</th><th style="padding:8px 11px;border-bottom:1px solid var(--bd);text-align:left;color:var(--t3);font-size:10px;text-transform:uppercase;letter-spacing:.05em">Profit</th><th style="padding:8px 11px;border-bottom:1px solid var(--bd);text-align:left;color:var(--t3);font-size:10px;text-transform:uppercase;letter-spacing:.05em">Margin</th><th style="padding:8px 11px;border-bottom:1px solid var(--bd);text-align:left;color:var(--t3);font-size:10px;text-transform:uppercase;letter-spacing:.05em">ROI</th></tr></thead><tbody>'+
+    bulkRows.map(function(r){
+      var cl = r.margin>=15?'color:var(--gr)':r.margin>=5?'color:var(--or)':'color:var(--re)';
+      return '<tr><td style="padding:7px 11px;border-bottom:1px solid var(--bd);color:var(--tx);font-weight:500">'+(r.sku||'—')+'</td><td style="padding:7px 11px;border-bottom:1px solid var(--bd)">₹'+(r.buyprice||gv('raw'))+'</td><td style="padding:7px 11px;border-bottom:1px solid var(--bd);color:var(--tx);font-weight:600">₹'+r.sp+'</td><td style="padding:7px 11px;border-bottom:1px solid var(--bd)">₹'+r.totalCost+'</td><td style="padding:7px 11px;border-bottom:1px solid var(--bd);'+cl+'">₹'+Math.abs(r.profit)+'</td><td style="padding:7px 11px;border-bottom:1px solid var(--bd);'+cl+'">'+r.margin+'%</td><td style="padding:7px 11px;border-bottom:1px solid var(--bd);'+cl+'">'+r.roi+'%</td></tr>';
+    }).join('')+'</tbody></table>';
+  showToast(bulkRows.length + ' SKUs calculated');
+}
+function exportBulkCSV() {
+  if(!bulkRows.length){showToast('No bulk data — upload a CSV first');return;}
+  var rows=[['SKU','BuyPrice','MinSP','TotalCost','Profit','Margin%','ROI%']].concat(
+    bulkRows.map(function(r){return[r.sku,r.buyprice||gv('raw'),r.sp,r.totalCost,r.profit,r.margin,r.roi];}));
+  var csv=rows.map(function(r){return r.join(',');}).join('
+');
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
+  a.download='bulk_results_'+Date.now()+'.csv'; a.click();
+  showToast('Bulk CSV exported');
+}
+
+// ═══════════════════════════════════
+// RAZORPAY STUB
+// ═══════════════════════════════════
+function doRazorpay(){
+  showToast('Razorpay: Add your KEY_ID to go live');
+  /* LIVE: uncomment and add your KEY_ID
+  var options = {
+    key: 'YOUR_RAZORPAY_KEY_ID',
+    amount: 9900, currency: 'INR',
+    name: 'EPIC', description: 'Monthly subscription ₹99',
+    handler: function(resp) { showToast('Payment successful!'); document.getElementById('paywall').classList.remove('show'); },
+    prefill: { name: user.name, email: user.email },
+    theme: { color: '#c8f060' }
+  };
+  new Razorpay(options).open();
+  */
+}
+
+// ═══════════════════════════════════
+// PROFILE SAVE
+// ═══════════════════════════════════
+function doLogout() {
+  user = {name:'',email:'',initials:''};
+  goPage('landing');
+  showToast('Logged out successfully');
+}
+
+function saveProfile() {
+  var nameEl = document.getElementById('p-name');
+  var emailEl = document.getElementById('p-email');
+  if (nameEl && nameEl.value.trim()) {
+    user.name = nameEl.value.trim();
+    user.initials = user.name.split(' ').map(function(n){return n[0];}).join('').toUpperCase().slice(0,2);
+    user.email = emailEl ? emailEl.value.trim() : user.email;
+    updateUserUI();
+  }
+  showToast('Profile updated');
+}
+
+// ═══════════════════════════════════
+// TOAST
+// ═══════════════════════════════════
+function showToast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2600);}
+
+// ═══════════════════════════════════
+// INIT
+// ═══════════════════════════════════
+// ── INIT ──
+applyTheme(theme);
+goPage('landing');
+</script>
+</body>
+</html>
